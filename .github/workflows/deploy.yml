@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build Angular Project
         # Usamos --base-href para que los assets carguen bien en GitHub Pages
