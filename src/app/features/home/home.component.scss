@@ -6,36 +6,56 @@
 }
 
 .header {
-  margin-top: 2rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  margin-top: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 450px;
   
-  .logo-title {
-    font-family: var(--font-title);
-    color: var(--color-gold-base);
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
+  .lol-text {
+    font-family: 'Times New Roman', serif;
+    /* Bright metallic gradient */
+    background: linear-gradient(180deg, #fffae3 0%, #eac269 45%, #8f6014 55%, #f4d37c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     
-    span {
-      font-size: 1rem;
+    /* Using drop-shadow to create a solid dark outline and a soft outer shadow */
+    filter: drop-shadow(0 1px 1px #050402)
+            drop-shadow(0 2px 1px #050402)
+            drop-shadow(0 4px 10px rgba(0,0,0,0.9));
+            
+    margin: 0;
+    line-height: 1.15;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .logo-title {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    
+    .of-text {
+      font-size: 1.2rem;
       vertical-align: middle;
+      display: inline-block;
+      margin: 0 -0.5rem;
     }
   }
 
   .main-title {
-    font-family: var(--font-title);
-    font-size: 3rem;
-    color: var(--color-gold-light);
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    max-width: 400px;
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
   }
 
   .subtitle {
-    font-family: var(--font-title);
-    font-size: 1.2rem;
-    color: var(--color-gold-base);
-    max-width: 400px;
+    font-size: 1.8rem;
+    background: linear-gradient(180deg, #d3aa63 0%, #a27533 100%); /* Slightly darker gradient for subtitle */
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 }
 
