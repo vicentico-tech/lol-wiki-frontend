@@ -128,3 +128,71 @@
     justify-content: flex-end;
   }
 }
+
+/* ================================
+   Responsive Design (Mobile/Tablet)
+   ================================ */
+
+@media (max-width: 1024px) {
+  .bottom-section {
+    align-items: center;
+  }
+  .nav-grid {
+    align-items: center;
+    .nav-row {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    
+    .lol-text {
+      text-align: center;
+    }
+    
+    .logo-title {
+      font-size: 2.2rem;
+    }
+    
+    .main-title {
+      font-size: 2.5rem;
+    }
+    
+    .subtitle {
+      font-size: 1.4rem;
+    }
+  }
+
+  .featured-box {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .nav-grid .nav-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    .logo-title {
+      font-size: 1.8rem;
+    }
+    .main-title {
+      font-size: 2rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+    }
+  }
+}
