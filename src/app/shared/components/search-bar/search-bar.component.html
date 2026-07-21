@@ -51,7 +51,7 @@
 
   <!-- Resultados del buscador -->
   <div class="search-dropdown" *ngIf="showDropdown && searchResults.length > 0">
-    <div class="dropdown-item" *ngFor="let result of searchResults">
+    <div class="dropdown-item" *ngFor="let result of searchResults" (click)="onResultClick(result)">
       <img [src]="result.icon" [alt]="result.name" class="result-icon">
       <div class="result-info">
         <span class="result-name">{{ result.name }}</span>

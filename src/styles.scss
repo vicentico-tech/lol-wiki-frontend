@@ -24,5 +24,10 @@ html, body {
   background-color: var(--color-bg-dark);
   color: var(--color-gold-light);
   font-family: var(--font-body);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body.modal-open {
+  overflow-y: hidden;
 }

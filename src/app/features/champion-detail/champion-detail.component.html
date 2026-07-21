@@ -1,0 +1,94 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="champion; else loadingState">
+      <!-- Columna izquierda: splash -->
+      <div class="splash-panel">
+        <img [src]="champion.splashUrl" [alt]="champion.name + ' splash'" class="splash-img">
+        <div class="splash-gradient"></div>
+        <div class="splash-info">
+          <div class="role-badge">{{ champion.roleLabel }}</div>
+          <h2 class="champ-name lol-gold-text">{{ champion.name | uppercase }}</h2>
+          <p class="champ-title">{{ champion.title }}</p>
+        </div>
+      </div>
+
+      <!-- Columna derecha: contenido -->
+      <div class="content-panel">
+        <div class="top-bar">
+          <img [src]="champion.iconUrl" [alt]="champion.name" class="champ-icon">
+          <div class="top-bar-info">
+            <div class="champ-name-small">{{ champion.name }}</div>
+            <div class="resource-label">{{ champion.resourceLabel }}</div>
+          </div>
+          <div class="difficulty-block">
+            <div class="difficulty-label">Dificultad</div>
+            <div class="difficulty-pips">
+              <span class="pip" *ngFor="let pip of [0, 1, 2]" [class.pip-on]="pip < champion.difficultyPips"></span>
+            </div>
+          </div>
+          <button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+        </div>
+
+        <div class="body-scroll">
+          <!-- Estadísticas base -->
+          <div class="section-header">
+            <span>Estadísticas base</span>
+            <span class="section-line"></span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-row" *ngFor="let stat of champion.stats">
+              <div class="stat-top">
+                <span class="stat-label">{{ stat.label }}</span>
+                <span class="stat-value">{{ stat.value }}</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill" [style.width.%]="stat.pct"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Habilidades -->
+          <div class="section-header">
+            <span>Habilidades</span>
+            <span class="section-line"></span>
+          </div>
+          <div class="abilities-row">
+            <button
+              class="ability-btn"
+              *ngFor="let ability of champion.abilities"
+              [class.ability-active]="ability.key === selectedAbility"
+              (click)="selectAbility(ability.key)">
+              <img [src]="ability.icon" [alt]="ability.name">
+              <span class="ability-key">{{ ability.key }}</span>
+            </button>
+          </div>
+
+          <!-- Detalle de habilidad seleccionada -->
+          <div class="ability-detail" *ngIf="selectedAbilityData as sel">
+            <div class="ability-detail-header">
+              <img [src]="sel.icon" [alt]="sel.name" class="ability-detail-icon">
+              <div class="ability-detail-text">
+                <div class="ability-detail-title">
+                  <span class="ability-detail-key">{{ sel.key }}</span>
+                  <h4>{{ sel.name }}</h4>
+                </div>
+                <div class="ability-detail-meta">{{ sel.meta }}</div>
+              </div>
+            </div>
+            <p class="ability-detail-desc">{{ sel.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingState>
+      <div class="loading-state">
+        <button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+        <span *ngIf="loading">Cargando campeón…</span>
+        <span *ngIf="!loading">No se pudo cargar el campeón.</span>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

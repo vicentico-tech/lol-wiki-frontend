@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { RiotDataService, ChampionData, ItemData } from '../../../core/services/riot-data.service';
 
 interface SearchResult {
   type: 'champion' | 'item';
+  id: string;
   name: string;
   icon: string;
   subtitle: string;
@@ -18,6 +19,8 @@ interface SearchResult {
   styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent implements OnInit {
+  @Output() championSelected = new EventEmitter<string>();
+
   searchTerm$ = new Subject<string>();
   searchResults: SearchResult[] = [];
   isSearching = false;
@@ -70,6 +73,7 @@ export class SearchBarComponent implements OnInit {
       .slice(0, 4)
       .map(c => ({
         type: 'champion' as const,
+        id: c.id,
         name: c.name,
         subtitle: c.title,
         icon: this.riotService.getChampionIconUrl(c.image.full)
@@ -80,6 +84,7 @@ export class SearchBarComponent implements OnInit {
       .slice(0, 4)
       .map(i => ({
         type: 'item' as const,
+        id: i.id,
         name: i.data.name,
         subtitle: i.data.plaintext || 'Objeto',
         icon: this.riotService.getItemIconUrl(i.data.image.full)
@@ -88,5 +93,12 @@ export class SearchBarComponent implements OnInit {
     this.searchResults = [...champs, ...items];
     this.showDropdown = this.searchResults.length > 0;
     this.isSearching = false;
+  }
+
+  onResultClick(result: SearchResult) {
+    if (result.type === 'champion') {
+      this.championSelected.emit(result.id);
+      this.showDropdown = false;
+    }
   }
 }

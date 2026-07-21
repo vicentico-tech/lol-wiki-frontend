@@ -17,6 +17,24 @@ export interface ItemData {
   image: { full: string };
 }
 
+export interface ChampionDetailData {
+  id: string;
+  name: string;
+  title: string;
+  tags: string[];
+  partype: string;
+  info: { difficulty: number };
+  stats: Record<string, number>;
+  passive: { name: string; description: string; image: { full: string } };
+  spells: Array<{
+    name: string;
+    description: string;
+    costBurn: string;
+    cooldownBurn: string;
+    image: { full: string };
+  }>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,10 +89,42 @@ export class RiotDataService {
   }
 
   /**
+   * Obtiene el detalle completo de un campeón (stats + habilidades).
+   */
+  getChampionDetail(id: string): Observable<{ version: string; champion: ChampionDetailData }> {
+    return this.getLatestVersion().pipe(
+      switchMap(version => this.http.get<any>(`${this.baseUrl}/cdn/${version}/data/es_ES/champion/${id}.json`).pipe(
+        map(res => ({ version, champion: res.data[id] as ChampionDetailData }))
+      ))
+    );
+  }
+
+  /**
+   * Helper para obtener la URL del splash art de un campeón.
+   */
+  getChampionSplashUrl(id: string): string {
+    return `${this.baseUrl}/cdn/img/champion/splash/${id}_0.jpg`;
+  }
+
+  /**
    * Helper para obtener la URL del icono de un campeón.
    */
   getChampionIconUrl(imageName: string): string {
     return `${this.baseUrl}/cdn/${this.currentVersion}/img/champion/${imageName}`;
+  }
+
+  /**
+   * Helper para obtener la URL del icono de una pasiva.
+   */
+  getPassiveIconUrl(imageName: string): string {
+    return `${this.baseUrl}/cdn/${this.currentVersion}/img/passive/${imageName}`;
+  }
+
+  /**
+   * Helper para obtener la URL del icono de una habilidad (Q/W/E/R).
+   */
+  getSpellIconUrl(imageName: string): string {
+    return `${this.baseUrl}/cdn/${this.currentVersion}/img/spell/${imageName}`;
   }
 
   /**
