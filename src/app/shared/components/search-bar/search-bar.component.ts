@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { RiotDataService, ChampionData, ItemData } from '../../../core/services/riot-data.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface SearchResult {
   type: 'champion' | 'item';
@@ -30,7 +31,10 @@ export class SearchBarComponent implements OnInit {
   private allChampions: ChampionData[] = [];
   private allItems: {id: string, data: ItemData}[] = [];
 
-  constructor(private riotService: RiotDataService) {}
+  constructor(
+    private riotService: RiotDataService,
+    private analytics: AnalyticsService
+  ) {}
 
   ngOnInit() {
     this.riotService.getChampions().subscribe(champs => this.allChampions = champs);
@@ -94,9 +98,22 @@ export class SearchBarComponent implements OnInit {
     this.searchResults = [...champs, ...items];
     this.showDropdown = this.searchResults.length > 0;
     this.isSearching = false;
+
+    this.analytics.pushEvent({
+      event: 'search',
+      search_term: lowerTerm,
+      results_count: this.searchResults.length
+    });
   }
 
   onResultClick(result: SearchResult) {
+    this.analytics.pushEvent({
+      event: 'select_content',
+      content_type: result.type,
+      item_id: result.id,
+      item_name: result.name
+    });
+
     if (result.type === 'champion') {
       this.championSelected.emit(result.id);
     } else {

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ChampionDetailData, RiotDataService } from '../../core/services/riot-data.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 interface StatRow {
   label: string;
@@ -81,7 +82,10 @@ export class ChampionDetailComponent implements OnInit, OnDestroy {
   loading = true;
   selectedAbility = 'P';
 
-  constructor(private riotService: RiotDataService) {}
+  constructor(
+    private riotService: RiotDataService,
+    private analytics: AnalyticsService
+  ) {}
 
   ngOnInit(): void {
     document.body.classList.add('modal-open');
@@ -118,6 +122,12 @@ export class ChampionDetailComponent implements OnInit, OnDestroy {
       next: ({ version, champion }) => {
         this.champion = this.parseChampion(champion, version);
         this.loading = false;
+
+        this.analytics.pushEvent({
+          event: 'view_champion_detail',
+          champion_id: this.champion.id,
+          champion_name: this.champion.name
+        });
       },
       error: () => {
         this.loading = false;

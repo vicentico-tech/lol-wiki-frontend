@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ItemDetailData, RiotDataService } from '../../core/services/riot-data.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 interface StatLine {
   label: string;
@@ -130,7 +131,10 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   item: ParsedItem | null = null;
   loading = true;
 
-  constructor(private riotService: RiotDataService) {}
+  constructor(
+    private riotService: RiotDataService,
+    private analytics: AnalyticsService
+  ) {}
 
   ngOnInit(): void {
     document.body.classList.add('modal-open');
@@ -155,6 +159,12 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
       next: ({ version, item, all }) => {
         this.item = this.parseItem(id, item, all, version);
         this.loading = false;
+
+        this.analytics.pushEvent({
+          event: 'view_item_detail',
+          item_id: this.item.id,
+          item_name: this.item.name
+        });
       },
       error: () => {
         this.loading = false;
