@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;background:#0a0a0c;color:#f0e6d2;font-family:'Roboto',sans-serif;overflow:hidden}
+  a{color:#0ac8b9;text-decoration:none}
+  a:hover{color:#f0e6d2}
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:#0b1116}
+  ::-webkit-scrollbar-thumb{background:#3e4b54;border-radius:4px}
+  @keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+
+<div style="width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;background-image:url('public/background.jpg');background-size:cover;background-position:center">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,.2) 0%,rgba(0,0,0,.8) 100%);pointer-events:none"></div>
+
+  <!-- HOME SHELL (recreada del código) -->
+  <div style="width:100%;max-width:1200px;height:100%;position:relative;z-index:1;padding:4rem 2rem;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="margin-top:1rem;padding:1rem;display:flex;flex-direction:column;align-items:flex-start;max-width:450px">
+      <h2 style="font-family:'Times New Roman',serif;font-size:2.8rem;letter-spacing:2px;margin-bottom:1.5rem;line-height:1.15;font-weight:bold;background:linear-gradient(180deg,#fffae3 0%,#eac269 45%,#8f6014 55%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 1px #050402) drop-shadow(0 2px 1px #050402) drop-shadow(0 4px 10px rgba(0,0,0,.9))">LEAGUE <span style="font-size:1.2rem;vertical-align:middle;display:inline-block;margin:0 -.5rem;-webkit-text-fill-color:transparent">of</span> LEGENDS</h2>
+      <h1 style="font-family:'Times New Roman',serif;font-size:3.2rem;margin-bottom:1rem;line-height:1.15;font-weight:bold;background:linear-gradient(180deg,#fffae3 0%,#eac269 45%,#8f6014 55%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 1px #050402) drop-shadow(0 2px 1px #050402) drop-shadow(0 4px 10px rgba(0,0,0,.9))">EL WIKI DE<br>LA COMUNIDAD</h1>
+      <p style="font-family:'Times New Roman',serif;font-size:1.8rem;line-height:1.15;font-weight:bold;background:linear-gradient(180deg,#d3aa63 0%,#a27533 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 1px #050402) drop-shadow(0 2px 1px #050402)">TU FUENTE DE<br>CONOCIMIENTO SOBRE<br>LA GRIETA.</p>
+    </div>
+
+    <!-- Search bar recreada -->
+    <div style="display:flex;justify-content:center;margin:3rem 0;position:relative;z-index:10;filter:drop-shadow(0 15px 25px rgba(0,0,0,.6))">
+      <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#505c66 0%,#23282d 100%);padding:4px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);z-index:20">
+        <div style="background:linear-gradient(180deg,#0b2233 0%,#174b6e 100%);color:#00c8ff;font-size:1.2rem;font-weight:bold;font-family:Arial,sans-serif;text-shadow:0 0 8px #00c8ff;width:36px;height:36px;display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)">R</div>
+      </div>
+      <div style="position:relative;background:linear-gradient(180deg,#505c66 0%,#23282d 50%,#15181a 100%);padding:6px;clip-path:polygon(25px 0,calc(100% - 25px) 0,100% 50%,calc(100% - 25px) 100%,25px 100%,0 50%);width:100%;max-width:850px;display:flex;align-items:center;box-shadow:inset 0 1px 1px rgba(255,255,255,.1)">
+        <div style="flex:1;display:flex;align-items:center;background:linear-gradient(90deg,#0b2233 0%,#174b6e 50%,#0b2233 100%);box-shadow:inset 0 0 0 2px #00c8ff,inset 0 0 15px rgba(0,200,255,.5);height:60px;position:relative;z-index:2;clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 50%,calc(100% - 20px) 100%,20px 100%,0 50%);padding:0 15px">
+          <div style="color:#00c8ff;width:24px;height:24px;filter:drop-shadow(0 0 5px #00c8ff);display:flex;align-items:center;justify-content:center;margin-right:15px;margin-left:5px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6L9 12l6 6"></path><circle cx="9" cy="12" r="1" fill="currentColor"></circle></svg></div>
+          <input value="{{ query }}" onChange="{{ onQuery }}" onFocus="{{ openSearch }}" placeholder="Busca campeones, objetos o historia..." style="flex:1;background:transparent;border:none;color:#c4d3df;font-size:1.25rem;font-family:'Times New Roman',serif;outline:none;text-shadow:0 2px 4px rgba(0,0,0,.8);padding:0 10px"/>
+          <button onClick="{{ openChamp }}" style="background:linear-gradient(180deg,#8a6a32 0%,#c19c50 50%,#6e4e20 100%);border:none;box-shadow:inset 0 0 5px rgba(0,0,0,.5),0 0 10px rgba(0,0,0,.5);width:70px;height:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,10px 100%,0 50%)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1f0c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+          <div style="color:#00c8ff;width:24px;height:24px;filter:drop-shadow(0 0 5px #00c8ff);display:flex;align-items:center;justify-content:center;margin-left:15px;margin-right:5px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path><circle cx="15" cy="12" r="1" fill="currentColor"></circle></svg></div>
+        </div>
+
+        <!-- Dropdown de resultados: clic para abrir el detalle -->
+        <sc-if value="{{ showSearch }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:100%;left:0;width:100%;max-width:850px;margin-top:5px;background:linear-gradient(180deg,#15181a 0%,#23282d 100%);border:2px solid #505c66;border-top:none;border-radius:0 0 8px 8px;box-shadow:0 10px 20px rgba(0,0,0,.8),inset 0 0 10px rgba(0,0,0,.5);z-index:100;padding-top:10px;overflow:hidden;animation:fadeIn .15s ease">
+            <div onClick="{{ openChamp }}" style="display:flex;align-items:center;padding:10px 20px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05)" style-hover="background:rgba(0,200,255,.1)">
+<sc-if value="{{ iconUrl }}" hint-placeholder-val="{{ false }}"><img src="{{ iconUrl }}" alt="{{ champName }}" style="width:48px;height:48px;border:1px solid #c8aa6e;margin-right:15px;border-radius:4px;box-shadow:0 2px 5px rgba(0,0,0,.5);background:#000"/></sc-if>
+              <div style="flex:1;display:flex;flex-direction:column">
+                <span style="color:#e5cd8d;font-size:1.1rem;font-weight:bold;font-family:'Times New Roman',serif">{{ champName }}</span>
+                <span style="color:#8b9ea8;font-size:.9rem;font-family:Arial,sans-serif">{{ champTitle }}</span>
+              </div>
+              <span style="color:#00c8ff;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;font-weight:bold;opacity:.7">Campeón</span>
+            </div>
+            <div onClick="{{ openItem }}" style="display:flex;align-items:center;padding:10px 20px;cursor:pointer" style-hover="background:rgba(0,200,255,.1)">
+              <sc-if value="{{ itemIconUrl }}" hint-placeholder-val="{{ false }}"><img src="{{ itemIconUrl }}" alt="{{ itemName }}" style="width:48px;height:48px;border:1px solid #c8aa6e;margin-right:15px;border-radius:4px;box-shadow:0 2px 5px rgba(0,0,0,.5);background:#000"/></sc-if>
+              <div style="flex:1;display:flex;flex-direction:column">
+                <span style="color:#e5cd8d;font-size:1.1rem;font-weight:bold;font-family:'Times New Roman',serif">{{ itemName }}</span>
+                <span style="color:#8b9ea8;font-size:.9rem;font-family:Arial,sans-serif">{{ itemPlaintext }}</span>
+              </div>
+              <span style="color:#00c8ff;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;font-weight:bold;opacity:.7">Objeto</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DETALLE -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ true }}">
+    <div onClick="{{ close }}" style="position:absolute;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:32px;background:radial-gradient(circle at center,rgba(3,6,10,.72),rgba(2,3,5,.94));backdrop-filter:blur(3px);animation:fadeIn .2s ease">
+      <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:1080px;height:min(680px,88vh);display:flex;background:linear-gradient(180deg,#12100b 0%,#0a0a0c 100%);border:1px solid #785a28;box-shadow:0 0 0 1px #1c1710,0 30px 80px rgba(0,0,0,.85),inset 0 0 60px rgba(0,0,0,.6);clip-path:polygon(28px 0,calc(100% - 28px) 0,100% 28px,100% calc(100% - 28px),calc(100% - 28px) 100%,28px 100%,0 calc(100% - 28px),0 28px);animation:modalIn .3s cubic-bezier(.2,.8,.2,1)">
+
+        <!-- Panel splash izquierda -->
+        <div style="position:relative;width:42%;min-width:340px;overflow:hidden;border-right:1px solid #785a28">
+          <sc-if value="{{ splashUrl }}" hint-placeholder-val="{{ false }}"><img src="{{ splashUrl }}" alt="{{ champName }} splash" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% center"/></sc-if>
+          <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,0) 55%,rgba(10,10,12,.95) 100%),linear-gradient(0deg,rgba(10,10,12,.96) 0%,rgba(10,10,12,0) 42%)"></div>
+          <div style="position:absolute;left:28px;right:20px;bottom:26px">
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid #0ac8b9;background:rgba(11,34,51,.55);color:#0ac8b9;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);margin-bottom:14px">{{ roleLabel }}</div>
+            <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:2.9rem;line-height:.95;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">{{ champUpper }}</h2>
+            <p style="font-family:'Times New Roman',serif;font-style:italic;color:#c8aa6e;font-size:1.05rem;margin-top:4px;letter-spacing:1px">{{ champTitle }}</p>
+          </div>
+        </div>
+
+        <!-- Panel de contenido derecha -->
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <!-- Barra superior -->
+          <div style="display:flex;align-items:center;gap:14px;padding:20px 26px 16px;border-bottom:1px solid rgba(120,90,40,.35)">
+            <sc-if value="{{ iconUrl }}" hint-placeholder-val="{{ false }}"><img src="{{ iconUrl }}" alt="" style="width:44px;height:44px;border:1px solid #c8aa6e;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.6)"/></sc-if>
+            <div style="flex:1;min-width:0">
+              <div style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:1.05rem;letter-spacing:1px;line-height:1">{{ champName }}</div>
+              <div style="color:#785a28;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;margin-top:3px">{{ resourceLabel }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="text-align:right">
+                <div style="color:#8b9ea8;font-size:.62rem;letter-spacing:2px;text-transform:uppercase">Dificultad</div>
+                <div style="display:flex;gap:4px;margin-top:5px">
+                  <sc-for list="{{ diffPips }}" as="p" hint-placeholder-count="3">
+                    <span style="{{ p.style }}"></span>
+                  </sc-for>
+                </div>
+              </div>
+              <button onClick="{{ close }}" style="width:36px;height:36px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)" style-hover="filter:brightness(1.3)">✕</button>
+            </div>
+          </div>
+
+          <!-- Cuerpo scroll -->
+          <div style="flex:1;overflow-y:auto;padding:22px 26px 26px">
+            <!-- Estadísticas base -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.82rem;letter-spacing:3px;text-transform:uppercase">Estadísticas base</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;margin-bottom:26px">
+              <sc-for list="{{ stats }}" as="s" hint-placeholder-count="6">
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px">
+                    <span style="color:#8b9ea8;font-size:.72rem;letter-spacing:1px;text-transform:uppercase">{{ s.label }}</span>
+                    <span style="color:#f0e6d2;font-family:'Times New Roman',serif;font-size:.95rem;font-weight:700">{{ s.value }}</span>
+                  </div>
+                  <div style="height:6px;background:#1a1c1f;border:1px solid #262a2e;position:relative;overflow:hidden">
+                    <div style="position:absolute;inset:0 auto 0 0;width:{{ s.pct }};background:linear-gradient(90deg,#785a28,#c8aa6e)"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Habilidades -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.82rem;letter-spacing:3px;text-transform:uppercase">Habilidades</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:18px">
+              <sc-for list="{{ abilities }}" as="ab" hint-placeholder-count="5">
+                <button onClick="{{ ab.select }}" style="{{ ab.btnStyle }}">
+                  <sc-if value="{{ ab.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ ab.icon }}" alt="{{ ab.name }}" style="width:100%;height:100%;object-fit:cover"/></sc-if>
+                  <span style="position:absolute;bottom:-1px;right:-1px;background:#0a0a0c;border:1px solid #785a28;color:#c8aa6e;font-size:.62rem;font-weight:700;font-family:'Cinzel',serif;width:16px;height:16px;display:flex;align-items:center;justify-content:center;line-height:1">{{ ab.key }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <!-- Detalle de habilidad seleccionada -->
+            <div style="background:linear-gradient(180deg,rgba(23,75,110,.14),rgba(11,34,51,.06));border:1px solid rgba(120,90,40,.4);border-left:2px solid #0ac8b9;padding:16px 18px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:9px">
+                <sc-if value="{{ sel.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ sel.icon }}" alt="" style="width:42px;height:42px;border:1px solid #c8aa6e;flex:none"/></sc-if>
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="color:#00c8ff;font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;border:1px solid #174b6e;padding:1px 6px;letter-spacing:1px">{{ sel.key }}</span>
+                    <h4 style="color:#f0e6d2;font-family:'Times New Roman',serif;font-size:1.15rem;font-weight:700">{{ sel.name }}</h4>
+                  </div>
+                  <div style="color:#785a28;font-size:.68rem;text-transform:uppercase;letter-spacing:2px;margin-top:3px">{{ sel.meta }}</div>
+                </div>
+              </div>
+              <p style="color:#b9b19d;font-size:.9rem;line-height:1.55;text-wrap:pretty">{{ sel.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- MODAL DE DETALLE DE OBJETO -->
+  <sc-if value="{{ itemModalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ close }}" style="position:absolute;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:32px;background:radial-gradient(circle at center,rgba(3,6,10,.72),rgba(2,3,5,.94));backdrop-filter:blur(3px);animation:fadeIn .2s ease">
+      <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:620px;max-height:88vh;display:flex;flex-direction:column;background:linear-gradient(180deg,#12100b 0%,#0a0a0c 100%);border:1px solid #785a28;box-shadow:0 0 0 1px #1c1710,0 30px 80px rgba(0,0,0,.85),inset 0 0 60px rgba(0,0,0,.6);clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 20px,100% calc(100% - 20px),calc(100% - 20px) 100%,20px 100%,0 calc(100% - 20px),0 20px);animation:modalIn .3s cubic-bezier(.2,.8,.2,1)">
+
+        <!-- Cabecera: icono, nombre, precio, cierre -->
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:26px 26px 18px;border-bottom:1px solid rgba(120,90,40,.35)">
+          <div style="position:relative;flex:none;width:88px;height:88px;background:#000;border:2px solid #c8aa6e;box-shadow:0 0 0 4px #0a0a0c,0 0 0 5px #785a28,0 4px 14px rgba(0,0,0,.7);clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px)">
+            <sc-if value="{{ itemIconUrl }}" hint-placeholder-val="{{ false }}"><img src="{{ itemIconUrl }}" alt="{{ itemName }}" style="width:100%;height:100%;object-fit:cover"/></sc-if>
+          </div>
+          <div style="flex:1;min-width:0;padding-top:2px">
+            <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.7rem;line-height:1.1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">{{ itemName }}</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+              <sc-for list="{{ itemTags }}" as="t" hint-placeholder-count="3">
+                <span style="display:inline-block;padding:3px 9px;border:1px solid #0ac8b9;background:rgba(11,34,51,.55);color:#0ac8b9;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">{{ t }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f4d37c,#a27533 70%);box-shadow:0 0 4px rgba(0,0,0,.6)"></span>
+                <span style="font-family:'Times New Roman',serif;font-weight:700;color:#f0e6d2;font-size:1.05rem">{{ itemTotalGold }}</span>
+              </div>
+              <span style="color:#785a28;font-size:.78rem">Venta {{ itemSellGold }}</span>
+            </div>
+          </div>
+          <button onClick="{{ close }}" style="width:36px;height:36px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)" style-hover="filter:brightness(1.3)">✕</button>
+        </div>
+
+        <!-- Cuerpo scroll -->
+        <div style="flex:1;overflow-y:auto;padding:20px 26px 26px">
+          <!-- Estadísticas -->
+          <sc-if value="{{ hasItemStats }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.78rem;letter-spacing:3px;text-transform:uppercase">Estadísticas</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px 26px;margin-bottom:22px">
+              <sc-for list="{{ itemStats }}" as="s" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="width:5px;height:5px;background:#0ac8b9;flex:none;box-shadow:0 0 4px rgba(10,200,185,.7)"></span>
+                  <span style="color:#c4d3df;font-size:.88rem"><b style="color:#f0e6d2">{{ s.value }}</b> {{ s.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <!-- Descripción / pasiva-activa -->
+          <div style="background:linear-gradient(180deg,rgba(23,75,110,.14),rgba(11,34,51,.06));border:1px solid rgba(120,90,40,.4);border-left:2px solid #0ac8b9;padding:15px 17px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));margin-bottom:22px">
+            <p style="color:#b9b19d;font-size:.9rem;line-height:1.55;text-wrap:pretty">{{ itemDesc }}</p>
+          </div>
+
+          <!-- Compuesto por -->
+          <sc-if value="{{ hasFrom }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.78rem;letter-spacing:3px;text-transform:uppercase">Compuesto por</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
+              <sc-for list="{{ itemFrom }}" as="f" hint-placeholder-count="2">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px">
+                  <sc-if value="{{ f.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ f.icon }}" alt="{{ f.name }}" style="width:48px;height:48px;border:1px solid #785a28;background:#000"/></sc-if>
+                  <span style="color:#8b9ea8;font-size:.62rem;text-align:center;line-height:1.2">{{ f.name }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <!-- Se combina en -->
+          <sc-if value="{{ hasInto }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.78rem;letter-spacing:3px;text-transform:uppercase">Se combina en</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ itemInto }}" as="n" hint-placeholder-count="2">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px">
+                  <sc-if value="{{ n.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ n.icon }}" alt="{{ n.name }}" style="width:48px;height:48px;border:1px solid #785a28;background:#000"/></sc-if>
+                  <span style="color:#8b9ea8;font-size:.62rem;text-align:center;line-height:1.2">{{ n.name }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:760},&quot;championId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Aatrox&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;itemId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;3078&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const BASE = 'https://ddragon.leagueoflegends.com';
+
+// --- Fallback estático (Aatrox) para pintado instantáneo ---
+const FALLBACK = {
+  id: 'Aatrox', name: 'Aatrox', title: 'La Espada de las Almas',
+  version: '15.13.1', tags: ['Fighter'], partype: 'Pozo de Sangre', difficulty: 4,
+  stats: [
+    {label:'Vida', value:'650', pct:'62%'},
+    {label:'Daño de ataque', value:'60', pct:'55%'},
+    {label:'Armadura', value:'38', pct:'60%'},
+    {label:'Resist. mágica', value:'32', pct:'50%'},
+    {label:'Vel. ataque', value:'0.651', pct:'40%'},
+    {label:'Vel. movimiento', value:'345', pct:'78%'},
+  ],
+  abilities: [
+    {key:'P', name:'Postura del Portador de Muerte', icon: BASE+'/cdn/15.13.1/img/passive/Aatrox_Passive.png', meta:'Pasiva', desc:'Periódicamente, el siguiente ataque básico de Aatrox inflige daño físico adicional y lo cura.'},
+    {key:'Q', name:'La Espada Darkin', icon: BASE+'/cdn/15.13.1/img/spell/AatroxQ.png', meta:'Recarga 14s', desc:'Aatrox golpea con su espada infligiendo daño físico; puede lanzarse hasta tres veces.'},
+    {key:'W', name:'Cadenas Infernales', icon: BASE+'/cdn/15.13.1/img/spell/AatroxW.png', meta:'Recarga 26s', desc:'Lanza una cadena que ralentiza y arrastra de vuelta a los enemigos que permanezcan en la zona.'},
+    {key:'E', name:'Embate Umbral', icon: BASE+'/cdn/15.13.1/img/spell/AatroxE.png', meta:'Recarga 9s', desc:'Se cura al golpear con habilidades y efectúa un impulso en la dirección elegida.'},
+    {key:'R', name:'Aniquilador de Mundos', icon: BASE+'/cdn/15.13.1/img/spell/AatroxR.png', meta:'Definitiva', desc:'Despliega su forma demoníaca ganando daño, velocidad y curación aumentada.'},
+  ],
+};
+
+const ROLE_ES = {Fighter:'Luchador', Tank:'Tanque', Mage:'Mago', Assassin:'Asesino', Marksman:'Tirador', Support:'Soporte'};
+const STAT_MAX = {hp:1100, attackdamage:75, armor:50, spellblock:40, attackspeed:1.0, movespeed:400};
+const strip = h => (h || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+const pct = (v, max) => Math.max(6, Math.min(100, Math.round(v / max * 100))) + '%';
+
+// --- Fallback estático (Trinity Force) ---
+const ITEM_ID = '3078';
+const FALLBACK_ITEM = {
+  id: ITEM_ID, name: 'Fuerza de la Trinidad', version: '15.13.1',
+  tags: ['Daño', 'Vel. de ataque', 'Vida'],
+  totalGold: 3333, sellGold: 2333,
+  desc: 'Combina daño físico, poder de habilidad, vida y velocidad de ataque con un efecto activo que otorga velocidad de movimiento y un golpe potenciado tras usar una habilidad.',
+  stats: [{label:'daño de ataque', value:'+33'}, {label:'velocidad de ataque', value:'+30%'}, {label:'vida', value:'+333'}],
+  from: [], into: [],
+};
+
+const ITEM_STAT_LABELS = {
+  FlatHPPoolMod:'vida', FlatMPPoolMod:'maná', FlatPhysicalDamageMod:'daño de ataque',
+  FlatMagicDamageMod:'poder de habilidad', FlatArmorMod:'armadura', FlatSpellBlockMod:'resistencia mágica',
+  FlatCritChanceMod:'prob. de golpe crítico', FlatHPRegenMod:'regen. de vida', FlatMPRegenMod:'regen. de maná',
+  PercentAttackSpeedMod:'velocidad de ataque', FlatMovementSpeedMod:'velocidad de movimiento',
+  PercentMovementSpeedMod:'velocidad de movimiento', PercentLifeStealMod:'robo de vida',
+};
+const parseItemStats = stats => Object.entries(stats || {}).filter(([, v]) => v).map(([k, v]) => {
+  const label = ITEM_STAT_LABELS[k] || k;
+  const isPct = k.startsWith('Percent') || k === 'FlatCritChanceMod';
+  const val = isPct ? Math.round(v * 100) + '%' : (Number.isInteger(v) ? v : v.toFixed(1));
+  return { label, value: '+' + val };
+});
+
+const ITEM_TAG_ES = {
+  Damage:'Daño', SpellDamage:'Poder de habilidad', Health:'Vida', HealthRegen:'Regen. de vida',
+  Mana:'Maná', ManaRegen:'Regen. de maná', Armor:'Armadura', SpellBlock:'Resist. mágica',
+  AttackSpeed:'Vel. de ataque', Boots:'Botas', NonbootsMovement:'Vel. de movimiento',
+  CriticalStrike:'Golpe crítico', SpellVamp:'Robo de vida (habilidades)', LifeSteal:'Robo de vida',
+  Aura:'Aura', Active:'Activo', Consumable:'Consumible', Vision:'Visión', Slow:'Ralentización',
+  Tenacity:'Tenacidad', CooldownReduction:'Reducción de enfriamiento', ArmorPenetration:'Penetración de armadura',
+  MagicPenetration:'Penetración mágica', GoldPer:'Oro por turno', Jungle:'Jungla', Lane:'Línea',
+  Trinket:'Objeto de utilidad', Stealth:'Sigilo', OnHit:'Al golpear',
+};
+const formatTag = t => ITEM_TAG_ES[t] || t.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+const stripItemDesc = html => {
+  if (!html) return '';
+  html = html.replace(/<stats>[\s\S]*?<\/stats>/gi, ''); // el bloque de stats ya se muestra arriba
+  html = html.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  return html.replace(/\s+/g, ' ').trim();
+};
+
+class Component extends DCLogic {
+  state = { modalOpen: false, itemModalOpen: true, selected: 'P', query: '', showSearch: false, champ: FALLBACK, item: FALLBACK_ITEM, allItems: {} };
+
+  componentDidMount() {
+    const champId = this.props.championId || 'Aatrox';
+    fetch(BASE + '/api/versions.json')
+      .then(r => r.json())
+      .then(vs => {
+        const v = vs[0];
+        fetch(`${BASE}/cdn/${v}/data/es_ES/champion/${champId}.json`)
+          .then(r => r.json())
+          .then(j => this.parse(j.data[champId], v))
+          .catch(() => {});
+        fetch(`${BASE}/cdn/${v}/data/es_ES/item.json`)
+          .then(r => r.json())
+          .then(j => this.parseItem(j.data, v))
+          .catch(() => {});
+      })
+      .catch(() => {}); // conserva el fallback si falla la red
+  }
+
+  parseItem(allItems, v) {
+    const id = this.props.itemId || ITEM_ID;
+    const it = allItems[id];
+    if (!it) return;
+    const icon = i => `${BASE}/cdn/${v}/img/item/${i}`;
+    const nameOf = refId => (allItems[refId] || {}).name || refId;
+    this.setState({
+      allItems,
+      item: {
+        id, name: it.name, version: v, tags: (it.tags || []).slice(0, 4).map(formatTag),
+        totalGold: it.gold.total, sellGold: it.gold.sell,
+        desc: stripItemDesc(it.description),
+        stats: parseItemStats(it.stats),
+        from: (it.from || []).map(f => ({ id: f, name: nameOf(f), icon: icon(f + '.png') })),
+        into: (it.into || []).map(n => ({ id: n, name: nameOf(n), icon: icon(n + '.png') })),
+      },
+    });
+  }
+
+  parse(c, v) {
+    const img = (folder, file) => `${BASE}/cdn/${v}/img/${folder}/${file}`;
+    const s = c.stats;
+    const as = (typeof s.attackspeed === 'number') ? s.attackspeed : 0.625 / (1 + (s.attackspeedoffset || 0));
+    const stats = [
+      {label:'Vida', value:Math.round(s.hp), pct:pct(s.hp, STAT_MAX.hp)},
+      {label:'Daño de ataque', value:Math.round(s.attackdamage), pct:pct(s.attackdamage, STAT_MAX.attackdamage)},
+      {label:'Armadura', value:Math.round(s.armor), pct:pct(s.armor, STAT_MAX.armor)},
+      {label:'Resist. mágica', value:Math.round(s.spellblock), pct:pct(s.spellblock, STAT_MAX.spellblock)},
+      {label:'Vel. ataque', value:as.toFixed(3), pct:pct(as, STAT_MAX.attackspeed)},
+      {label:'Vel. movimiento', value:Math.round(s.movespeed), pct:pct(s.movespeed, STAT_MAX.movespeed)},
+    ];
+    const keys = ['Q','W','E','R'];
+    const abilities = [
+      {key:'P', name:c.passive.name, icon:img('passive', c.passive.image.full), meta:'Pasiva', desc:strip(c.passive.description)},
+      ...c.spells.map((sp, i) => ({
+        key: keys[i], name: sp.name, icon: img('spell', sp.image.full),
+        meta: `${sp.costBurn && sp.costBurn !== '0' ? 'Coste '+sp.costBurn+' · ' : ''}Recarga ${sp.cooldownBurn}s`,
+        desc: strip(sp.description),
+      })),
+    ];
+    this.setState({ champ: { id:c.id, name:c.name, title:c.title, version:v, tags:c.tags, partype:c.partype, difficulty:c.info.difficulty, stats, abilities } });
+  }
+
+  renderVals() {
+    const c = this.state.champ;
+    const v = c.version;
+    const sel = c.abilities.find(a => a.key === this.state.selected) || c.abilities[0];
+    const abilities = c.abilities.map(a => {
+      const active = a.key === this.state.selected;
+      return { ...a,
+        select: () => this.setState({ selected: a.key }),
+        btnStyle: `position:relative;flex:none;width:56px;height:56px;padding:0;cursor:pointer;background:#000;border:2px solid ${active ? '#0ac8b9' : '#785a28'};overflow:hidden;transition:border-color .15s,transform .15s;transform:${active ? 'translateY(-3px)' : 'none'};box-shadow:${active ? '0 0 14px rgba(10,200,185,.5)' : '0 2px 6px rgba(0,0,0,.6)'}`,
+      };
+    });
+    const pipsOn = Math.max(1, Math.min(3, Math.round(c.difficulty / 3.34)));
+    const diffPips = [0,1,2].map(i => ({
+      style: `width:22px;height:5px;background:${i < pipsOn ? '#0ac8b9' : '#2a2f33'};${i < pipsOn ? 'box-shadow:0 0 6px rgba(10,200,185,.6)' : ''}`,
+    }));
+    const roleLabel = (c.tags || []).map(t => ROLE_ES[t] || t).join(' · ');
+
+    const it = this.state.item;
+    const gp = n => n != null ? n + ' PO' : '—';
+
+    return {
+      modalOpen: this.state.modalOpen, itemModalOpen: this.state.itemModalOpen,
+      showSearch: this.state.showSearch, query: this.state.query,
+      champName: c.name, champUpper: (c.name || '').toUpperCase(), champTitle: c.title,
+      roleLabel, resourceLabel: 'Recurso · ' + (c.partype || '—'),
+      iconUrl: `${BASE}/cdn/${v}/img/champion/${c.id}.png`,
+      splashUrl: `${BASE}/cdn/img/champion/splash/${c.id}_0.jpg`,
+      stats: c.stats, abilities, sel, diffPips,
+
+      itemName: it.name, itemPlaintext: it.desc, itemIconUrl: `${BASE}/cdn/${it.version}/img/item/${it.id}.png`,
+      itemTags: it.tags, itemTotalGold: gp(it.totalGold), itemSellGold: gp(it.sellGold),
+      itemDesc: it.desc, itemStats: it.stats, hasItemStats: it.stats.length > 0,
+      itemFrom: it.from, hasFrom: it.from.length > 0, itemInto: it.into, hasInto: it.into.length > 0,
+
+      onQuery: e => this.setState({ query: e.target.value, showSearch: e.target.value.trim().length >= 1 }),
+      openSearch: () => this.setState({ showSearch: this.state.query.trim().length >= 1 }),
+      openChamp: () => this.setState({ modalOpen: true, itemModalOpen: false, showSearch: false }),
+      openItem: () => this.setState({ itemModalOpen: true, modalOpen: false, showSearch: false }),
+      close: () => this.setState({ modalOpen: false, itemModalOpen: false }),
+      stop: e => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>

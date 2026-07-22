@@ -20,6 +20,7 @@ interface SearchResult {
 })
 export class SearchBarComponent implements OnInit {
   @Output() championSelected = new EventEmitter<string>();
+  @Output() itemSelected = new EventEmitter<string>();
 
   searchTerm$ = new Subject<string>();
   searchResults: SearchResult[] = [];
@@ -98,7 +99,9 @@ export class SearchBarComponent implements OnInit {
   onResultClick(result: SearchResult) {
     if (result.type === 'champion') {
       this.championSelected.emit(result.id);
-      this.showDropdown = false;
+    } else {
+      this.itemSelected.emit(result.id);
     }
+    this.showDropdown = false;
   }
 }

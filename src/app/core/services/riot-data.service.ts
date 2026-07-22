@@ -17,6 +17,18 @@ export interface ItemData {
   image: { full: string };
 }
 
+export interface ItemDetailData {
+  id: string;
+  name: string;
+  description: string;
+  tags: string[];
+  gold: { total: number; sell: number };
+  stats: Record<string, number>;
+  from?: string[];
+  into?: string[];
+  image: { full: string };
+}
+
 export interface ChampionDetailData {
   id: string;
   name: string;
@@ -44,6 +56,7 @@ export class RiotDataService {
   private currentVersion: string = '';
   private championsCache: Record<string, ChampionData> | null = null;
   private itemsCache: Record<string, ItemData> | null = null;
+  private itemDetailCache: Record<string, ItemDetailData> | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -132,5 +145,30 @@ export class RiotDataService {
    */
   getItemIconUrl(imageName: string): string {
     return `${this.baseUrl}/cdn/${this.currentVersion}/img/item/${imageName}`;
+  }
+
+  /**
+   * Obtiene el catálogo completo de objetos (item.json) en español, cacheado en memoria.
+   * Se usa tanto para el detalle de un objeto como para resolver "Compuesto por"/"Se combina en".
+   */
+  getItemCatalog(): Observable<{ version: string; all: Record<string, ItemDetailData> }> {
+    if (this.itemDetailCache) {
+      return this.getLatestVersion().pipe(map(version => ({ version, all: this.itemDetailCache! })));
+    }
+    return this.getLatestVersion().pipe(
+      switchMap(version => this.http.get<any>(`${this.baseUrl}/cdn/${version}/data/es_ES/item.json`).pipe(
+        tap(data => this.itemDetailCache = data.data),
+        map(data => ({ version, all: data.data as Record<string, ItemDetailData> }))
+      ))
+    );
+  }
+
+  /**
+   * Obtiene el detalle completo de un objeto (stats, precio, receta).
+   */
+  getItemDetail(id: string): Observable<{ version: string; item: ItemDetailData; all: Record<string, ItemDetailData> }> {
+    return this.getItemCatalog().pipe(
+      map(({ version, all }) => ({ version, all, item: { ...all[id], id } as ItemDetailData }))
+    );
   }
 }

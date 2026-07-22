@@ -5,13 +5,22 @@
     <p class="subtitle lol-text">TU FUENTE DE<br>CONOCIMIENTO SOBRE<br>LA GRIETA.</p>
   </div>
 
-  <app-search-bar (championSelected)="selectedChampionId = $event"></app-search-bar>
+  <app-search-bar
+    (championSelected)="onChampionSelected($event)"
+    (itemSelected)="onItemSelected($event)">
+  </app-search-bar>
 
   <app-champion-detail
-    *ngIf="selectedChampionId as champId"
-    [championId]="champId"
-    (close)="selectedChampionId = null">
+    *ngIf="selected?.type === 'champion'"
+    [championId]="selected!.id"
+    (close)="selected = null">
   </app-champion-detail>
+
+  <app-item-detail
+    *ngIf="selected?.type === 'item'"
+    [itemId]="selected!.id"
+    (close)="selected = null">
+  </app-item-detail>
 
   <div class="bottom-section">
     <div class="featured-box">

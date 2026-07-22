@@ -1,0 +1,86 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="item; else loadingState">
+      <!-- Cabecera -->
+      <div class="header">
+        <div class="item-icon-frame">
+          <img [src]="item.iconUrl" [alt]="item.name">
+        </div>
+        <div class="header-info">
+          <h2 class="item-name lol-gold-text">{{ item.name }}</h2>
+          <div class="tags-row" *ngIf="item.tags.length">
+            <span class="tag-chip" *ngFor="let tag of item.tags">{{ tag }}</span>
+          </div>
+          <div class="price-row">
+            <div class="price-total">
+              <span class="gold-dot"></span>
+              <span class="price-value">{{ item.totalGold }}</span>
+            </div>
+            <span class="price-sell">Venta {{ item.sellGold }}</span>
+          </div>
+        </div>
+        <button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+      </div>
+
+      <!-- Cuerpo scrollable -->
+      <div class="body-scroll">
+        <!-- Estadísticas -->
+        <ng-container *ngIf="item.stats.length">
+          <div class="section-header">
+            <span>Estadísticas</span>
+            <span class="section-line"></span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-line" *ngFor="let stat of item.stats">
+              <span class="stat-dot"></span>
+              <span class="stat-text"><b>{{ stat.value }}</b> {{ stat.label }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Descripción -->
+        <div class="item-desc">
+          <p>{{ item.desc }}</p>
+        </div>
+
+        <!-- Compuesto por -->
+        <ng-container *ngIf="item.from.length">
+          <div class="section-header">
+            <span>Compuesto por</span>
+            <span class="section-line"></span>
+          </div>
+          <div class="related-row">
+            <div class="related-item" *ngFor="let comp of item.from">
+              <img [src]="comp.icon" [alt]="comp.name">
+              <span>{{ comp.name }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Se combina en -->
+        <ng-container *ngIf="item.into.length">
+          <div class="section-header">
+            <span>Se combina en</span>
+            <span class="section-line"></span>
+          </div>
+          <div class="related-row">
+            <div class="related-item" *ngFor="let next of item.into">
+              <img [src]="next.icon" [alt]="next.name">
+              <span>{{ next.name }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingState>
+      <div class="loading-state">
+        <button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+        <span *ngIf="loading">Cargando objeto…</span>
+        <span *ngIf="!loading">No se pudo cargar el objeto.</span>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
