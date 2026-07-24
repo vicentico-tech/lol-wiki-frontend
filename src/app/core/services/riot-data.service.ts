@@ -4,9 +4,13 @@ import { Observable, of, tap, switchMap, map } from 'rxjs';
 
 export interface ChampionData {
   id: string;
+  key: string;
   name: string;
   title: string;
   blurb: string;
+  tags: string[];
+  partype: string;
+  info: { difficulty: number };
   image: { full: string; sprite: string; group: string; x: number; y: number; w: number; h: number };
 }
 
@@ -124,6 +128,13 @@ export class RiotDataService {
    */
   getChampionIconUrl(imageName: string): string {
     return `${this.baseUrl}/cdn/${this.currentVersion}/img/champion/${imageName}`;
+  }
+
+  /**
+   * Helper para obtener la URL del arte "loading" (vertical) de un campeón.
+   */
+  getChampionLoadingUrl(id: string): string {
+    return `${this.baseUrl}/cdn/img/champion/loading/${id}_0.jpg`;
   }
 
   /**

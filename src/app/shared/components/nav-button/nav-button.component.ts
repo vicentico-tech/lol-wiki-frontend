@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-button',
@@ -9,4 +10,13 @@ import { Component, Input } from '@angular/core';
 })
 export class NavButtonComponent {
   @Input() text: string = '';
+  @Input() route?: string;
+
+  constructor(private router: Router) {}
+
+  onClick(): void {
+    if (this.route) {
+      this.router.navigate([this.route]);
+    }
+  }
 }

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#07080a;color:#f0e6d2;font-family:'Roboto',sans-serif}
+  a{color:#0ac8b9;text-decoration:none}
+  a:hover{color:#f0e6d2}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:#0b1116}
+  ::-webkit-scrollbar-thumb{background:#3e4b54;border-radius:4px}
+  @keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes sheetIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  @keyframes pulseSk{0%,100%{opacity:.35}50%{opacity:.7}}
+  input,select,button{font-family:'Roboto',sans-serif}
+</style>
+</helmet>
+
+<section style="padding:48px;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;align-items:baseline;gap:14px">
+    <h1 style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:1.1rem;letter-spacing:4px;text-transform:uppercase">Vista de Campeones · opción 1b + responsive</h1>
+    <span style="color:#5e6b74;font-size:.8rem">Ruta /campeones · datos reales de Data Dragon (es_ES) · los tres tamaños comparten el mismo estado de filtros</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+    <!-- ================= DESKTOP 1440 ================= -->
+    <div id="2a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.85rem;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">2a</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Desktop · 1440×900</span>
+        <span style="color:#5e6b74;font-size:.82rem">Panel lateral fijo · rejilla de 10 columnas</span>
+      </div>
+
+      <div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.22"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,4,6,.97) 0%,rgba(3,4,6,.8) 30%,rgba(3,4,6,.94) 100%)"></div>
+
+        <div style="position:relative;height:100%;display:flex">
+          <div style="width:296px;flex:none;height:100%;display:flex;flex-direction:column;border-right:1px solid rgba(120,90,40,.4);background:linear-gradient(180deg,rgba(18,16,11,.9),rgba(8,8,10,.95))">
+            <div style="padding:26px 22px 18px;border-bottom:1px solid rgba(120,90,40,.3)">
+              <button style="display:flex;align-items:center;gap:8px;background:none;border:none;color:#8b9ea8;font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;padding:0;margin-bottom:16px" style-hover="color:#0ac8b9">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px"><path d="M15 6L9 12l6 6"></path></svg>
+                Volver al inicio
+              </button>
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.85rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">CAMPEONES</h2>
+              <p style="color:#785a28;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;margin-top:7px">{{ opt.count }} de {{ total }} · parche {{ version }}</p>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:20px 22px 22px;display:flex;flex-direction:column;gap:22px;min-height:0">
+              <div style="display:flex;align-items:center;gap:10px;height:38px;padding:0 13px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(11px 0,calc(100% - 11px) 0,100% 50%,calc(100% - 11px) 100%,11px 100%,0 50%)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px;flex:none"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input value="{{ opt.q }}" onChange="{{ opt.onQuery }}" placeholder="Buscar campeón..." style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#c4d3df;font-size:.85rem"/>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Rol</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                </div>
+                <sc-for list="{{ opt.roleRows }}" as="c" hint-placeholder-count="7">
+                  <button onClick="{{ c.onClick }}" style="{{ c.style }}"><span>{{ c.label }}</span><span style="{{ c.numStyle }}">{{ c.num }}</span></button>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Dificultad</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <sc-for list="{{ opt.diffChips }}" as="c" hint-placeholder-count="4">
+                    <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Recurso</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                </div>
+                <select value="{{ opt.res }}" onChange="{{ opt.onRes }}" style="height:34px;width:100%;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.78rem;padding:0 10px;outline:none;cursor:pointer">
+                  <sc-for list="{{ resOptions }}" as="r" hint-placeholder-count="4">
+                    <option value="{{ r.value }}">{{ r.label }}</option>
+                  </sc-for>
+                </select>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Orden</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                </div>
+                <select value="{{ opt.sort }}" onChange="{{ opt.onSort }}" style="height:34px;width:100%;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.78rem;padding:0 10px;outline:none;cursor:pointer">
+                  <option value="az">A → Z</option>
+                  <option value="za">Z → A</option>
+                  <option value="new">Más recientes</option>
+                  <option value="old">Más antiguos</option>
+                </select>
+              </div>
+
+              <div style="flex:1;min-height:14px"></div>
+
+              <div onClick="{{ openFeat }}" style="position:relative;height:230px;overflow:hidden;border:1px solid #785a28;clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);cursor:pointer">
+                <sc-if value="{{ featLoading }}" hint-placeholder-val="{{ false }}"><img src="{{ featLoading }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center"/></sc-if>
+                <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,7,9,.96) 8%,rgba(6,7,9,.15) 65%)"></div>
+                <span style="position:absolute;top:12px;left:12px;padding:4px 10px;border:1px solid #0ac8b9;background:rgba(11,34,51,.7);color:#0ac8b9;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)">Destacado</span>
+                <div style="position:absolute;left:14px;right:14px;bottom:14px">
+                  <h4 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.3rem;line-height:1;color:#f0e6d2;filter:drop-shadow(0 2px 3px #050402)">{{ featName }}</h4>
+                  <p style="font-family:'Times New Roman',serif;font-style:italic;color:#c8aa6e;font-size:.8rem;margin-top:4px">{{ featTitle }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:14px;padding:22px 34px 14px;border-bottom:1px solid rgba(120,90,40,.25);flex:none">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.8rem;letter-spacing:3.5px;text-transform:uppercase">{{ opt.heading }}</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+              <sc-if value="{{ opt.dirty }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ opt.reset }}" style="background:none;border:1px solid #3e4b54;color:#8b9ea8;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:7px 13px;cursor:pointer" style-hover="color:#0ac8b9;border-color:#0ac8b9">Limpiar filtros</button>
+              </sc-if>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:20px 34px 34px;min-height:0">
+              <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:16px 12px">
+                  <sc-for list="{{ skeleton }}" as="s" hint-placeholder-count="30">
+                    <div>
+                      <div style="aspect-ratio:1;background:#161a1e;border:1px solid #23282d;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                      <div style="height:9px;margin-top:7px;background:#161a1e;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:18px 12px">
+                <sc-for list="{{ opt.list }}" as="c" hint-placeholder-count="40">
+                  <div onClick="{{ c.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:7px">
+                    <div style="position:relative;aspect-ratio:1;border:1px solid #785a28;background:#000;overflow:hidden;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:0 4px 10px rgba(0,0,0,.6)" style-hover="border-color:#f0e6d2;box-shadow:0 0 0 1px #c8aa6e,0 0 20px rgba(200,170,110,.6)">
+                      <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ c.icon }}" alt="{{ c.name }}" style="width:100%;height:100%;object-fit:cover;display:block"/></sc-if>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:3px;align-items:center">
+                      <span style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:.82rem;line-height:1.1;text-align:center;letter-spacing:.5px">{{ c.name }}</span>
+                      <div style="display:flex;gap:3px">
+                        <sc-for list="{{ c.pips }}" as="p" hint-placeholder-count="3">
+                          <span style="{{ p.style }}"></span>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ opt.empty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:90px 0">
+                  <div style="width:56px;height:56px;border:1px solid #785a28;display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#785a28" stroke-width="2" stroke-linecap="round" style="width:22px;height:22px"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
+                  <p style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:1rem;letter-spacing:2px">NINGÚN CAMPEÓN COINCIDE</p>
+                  <p style="color:#8b9ea8;font-size:.84rem">Prueba a quitar algún filtro o revisa el nombre.</p>
+                  <button onClick="{{ opt.reset }}" style="margin-top:6px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;cursor:pointer;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)" style-hover="filter:brightness(1.3)">Limpiar filtros</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TABLET 834 ================= -->
+    <div id="2b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.85rem;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">2b</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Tablet · 834×1112 (≤1024px)</span>
+        <span style="color:#5e6b74;font-size:.82rem">El panel pasa a barra superior · rejilla de 6 columnas</span>
+      </div>
+
+      <div style="width:834px;height:1112px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.2"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,6,.9) 0%,rgba(3,4,6,.95) 100%)"></div>
+
+        <div style="position:relative;height:100%;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:16px;padding:22px 28px 16px;border-bottom:1px solid rgba(120,90,40,.35);flex:none">
+            <button style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#cca45c;cursor:pointer;border-radius:4px" style-hover="filter:brightness(1.2)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:18px;height:18px"><path d="M15 6L9 12l6 6"></path></svg>
+            </button>
+            <div style="flex:1;min-width:0">
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.7rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">CAMPEONES</h2>
+              <p style="color:#785a28;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;margin-top:6px">{{ opt.count }} de {{ total }} · parche {{ version }}</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;height:44px;padding:0 14px;width:280px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,12px 100%,0 50%)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round" style="width:15px;height:15px;flex:none"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input value="{{ opt.q }}" onChange="{{ opt.onQuery }}" placeholder="Buscar campeón..." style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#c4d3df;font-size:.9rem"/>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;min-height:0;padding:0 28px 30px">
+            <div onClick="{{ openFeat }}" style="position:relative;height:170px;margin-top:18px;overflow:hidden;border:1px solid #785a28;clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);cursor:pointer">
+              <sc-if value="{{ featSplash }}" hint-placeholder-val="{{ false }}"><img src="{{ featSplash }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%"/></sc-if>
+              <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,11,.95) 0%,rgba(8,9,11,.4) 65%,rgba(8,9,11,.85) 100%)"></div>
+              <div style="position:absolute;left:22px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:7px;max-width:420px">
+                <span style="align-self:flex-start;padding:4px 10px;border:1px solid #0ac8b9;background:rgba(11,34,51,.65);color:#0ac8b9;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)">Campeón destacado</span>
+                <h3 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.9rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 3px #050402)">{{ featName }}</h3>
+                <p style="font-family:'Times New Roman',serif;font-style:italic;color:#c8aa6e;font-size:.9rem">{{ featTitle }}</p>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0 6px">
+              <sc-for list="{{ opt.roleChips }}" as="c" hint-placeholder-count="7">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px">
+              <span style="color:#5e6b74;font-size:.6rem;letter-spacing:2px;text-transform:uppercase">Dificultad</span>
+              <sc-for list="{{ opt.diffChips }}" as="c" hint-placeholder-count="4">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+              <span style="flex:1"></span>
+              <select value="{{ opt.res }}" onChange="{{ opt.onRes }}" style="height:40px;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.8rem;padding:0 10px;outline:none;cursor:pointer">
+                <sc-for list="{{ resOptions }}" as="r" hint-placeholder-count="4">
+                  <option value="{{ r.value }}">{{ r.label }}</option>
+                </sc-for>
+              </select>
+              <select value="{{ opt.sort }}" onChange="{{ opt.onSort }}" style="height:40px;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.8rem;padding:0 10px;outline:none;cursor:pointer">
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+                <option value="new">Más recientes</option>
+                <option value="old">Más antiguos</option>
+              </select>
+            </div>
+
+            <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:18px 14px">
+                <sc-for list="{{ skeleton }}" as="s" hint-placeholder-count="18">
+                  <div>
+                    <div style="aspect-ratio:1;background:#161a1e;border:1px solid #23282d;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                    <div style="height:9px;margin-top:7px;background:#161a1e;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:20px 14px">
+              <sc-for list="{{ opt.list }}" as="c" hint-placeholder-count="24">
+                <div onClick="{{ c.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:7px">
+                  <div style="position:relative;aspect-ratio:1;border:1px solid #785a28;background:#000;overflow:hidden;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:0 4px 10px rgba(0,0,0,.6)" style-hover="border-color:#f0e6d2;box-shadow:0 0 0 1px #c8aa6e,0 0 20px rgba(200,170,110,.6)">
+                    <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ c.icon }}" alt="{{ c.name }}" style="width:100%;height:100%;object-fit:cover;display:block"/></sc-if>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:3px;align-items:center">
+                    <span style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:.9rem;line-height:1.1;text-align:center;letter-spacing:.5px">{{ c.name }}</span>
+                    <div style="display:flex;gap:3px">
+                      <sc-for list="{{ c.pips }}" as="p" hint-placeholder-count="3">
+                        <span style="{{ p.style }}"></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ opt.empty }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:70px 0">
+                <p style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:1rem;letter-spacing:2px">NINGÚN CAMPEÓN COINCIDE</p>
+                <p style="color:#8b9ea8;font-size:.84rem">Prueba a quitar algún filtro o revisa el nombre.</p>
+                <button onClick="{{ opt.reset }}" style="margin-top:6px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 18px;cursor:pointer;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)" style-hover="filter:brightness(1.3)">Limpiar filtros</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MÓVIL 390 ================= -->
+    <div id="2c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.85rem;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">2c</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Móvil · 390×844 (≤480px)</span>
+        <span style="color:#5e6b74;font-size:.82rem">Filtros plegables · rejilla de 3 columnas · botón "Filtros" abre el panel</span>
+      </div>
+
+      <div style="width:390px;height:844px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.18"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,6,.92) 0%,rgba(3,4,6,.96) 100%)"></div>
+
+        <div style="position:relative;height:100%;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:12px;padding:18px 16px 14px;border-bottom:1px solid rgba(120,90,40,.35);flex:none">
+            <button style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#cca45c;cursor:pointer;border-radius:4px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:18px;height:18px"><path d="M15 6L9 12l6 6"></path></svg>
+            </button>
+            <div style="flex:1;min-width:0">
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.35rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">CAMPEONES</h2>
+              <p style="color:#785a28;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-top:5px">{{ opt.count }} de {{ total }}</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;padding:14px 16px;flex:none">
+            <div style="flex:1;min-width:0;display:flex;align-items:center;gap:9px;height:44px;padding:0 13px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(11px 0,calc(100% - 11px) 0,100% 50%,calc(100% - 11px) 100%,11px 100%,0 50%)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round" style="width:15px;height:15px;flex:none"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input value="{{ opt.q }}" onChange="{{ opt.onQuery }}" placeholder="Buscar..." style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#c4d3df;font-size:.95rem"/>
+            </div>
+            <button onClick="{{ toggleSheet }}" style="{{ sheetBtnStyle }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="width:16px;height:16px"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>
+              Filtros
+            </button>
+          </div>
+
+          <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:0 16px 12px;padding:16px;flex:none;background:linear-gradient(180deg,rgba(18,16,11,.96),rgba(8,8,10,.96));border:1px solid rgba(120,90,40,.5);display:flex;flex-direction:column;gap:16px;animation:sheetIn .18s ease">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase">Rol</span>
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <sc-for list="{{ opt.roleChips }}" as="c" hint-placeholder-count="7">
+                    <button onClick="{{ c.onClick }}" style="{{ c.mobileStyle }}">{{ c.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase">Dificultad</span>
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <sc-for list="{{ opt.diffChips }}" as="c" hint-placeholder-count="4">
+                    <button onClick="{{ c.onClick }}" style="{{ c.mobileStyle }}">{{ c.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase">Recurso y orden</span>
+                <select value="{{ opt.res }}" onChange="{{ opt.onRes }}" style="height:44px;width:100%;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.85rem;padding:0 10px;outline:none;cursor:pointer">
+                  <sc-for list="{{ resOptions }}" as="r" hint-placeholder-count="4">
+                    <option value="{{ r.value }}">{{ r.label }}</option>
+                  </sc-for>
+                </select>
+                <select value="{{ opt.sort }}" onChange="{{ opt.onSort }}" style="height:44px;width:100%;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.85rem;padding:0 10px;outline:none;cursor:pointer">
+                  <option value="az">A → Z</option>
+                  <option value="za">Z → A</option>
+                  <option value="new">Más recientes</option>
+                  <option value="old">Más antiguos</option>
+                </select>
+              </div>
+              <button onClick="{{ opt.reset }}" style="height:44px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Limpiar filtros</button>
+            </div>
+          </sc-if>
+
+          <div style="flex:1;overflow-y:auto;min-height:0;padding:2px 16px 26px">
+            <div onClick="{{ openFeat }}" style="position:relative;height:150px;margin-bottom:18px;overflow:hidden;border:1px solid #785a28;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);cursor:pointer">
+              <sc-if value="{{ featSplash }}" hint-placeholder-val="{{ false }}"><img src="{{ featSplash }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%"/></sc-if>
+              <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,7,9,.96) 10%,rgba(6,7,9,.2) 70%)"></div>
+              <span style="position:absolute;top:10px;left:10px;padding:4px 9px;border:1px solid #0ac8b9;background:rgba(11,34,51,.7);color:#0ac8b9;font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">Destacado</span>
+              <div style="position:absolute;left:12px;right:12px;bottom:12px">
+                <h4 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.25rem;line-height:1;color:#f0e6d2;filter:drop-shadow(0 2px 3px #050402)">{{ featName }}</h4>
+                <p style="font-family:'Times New Roman',serif;font-style:italic;color:#c8aa6e;font-size:.8rem;margin-top:3px">{{ featTitle }}</p>
+              </div>
+            </div>
+
+            <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px 12px">
+                <sc-for list="{{ skeleton }}" as="s" hint-placeholder-count="9">
+                  <div>
+                    <div style="aspect-ratio:1;background:#161a1e;border:1px solid #23282d;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                    <div style="height:9px;margin-top:7px;background:#161a1e;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px 12px">
+              <sc-for list="{{ opt.list }}" as="c" hint-placeholder-count="12">
+                <div onClick="{{ c.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:7px">
+                  <div style="position:relative;aspect-ratio:1;border:1px solid #785a28;background:#000;overflow:hidden;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:0 4px 10px rgba(0,0,0,.6)" style-active="border-color:#f0e6d2">
+                    <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ c.icon }}" alt="{{ c.name }}" style="width:100%;height:100%;object-fit:cover;display:block"/></sc-if>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:3px;align-items:center">
+                    <span style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:.85rem;line-height:1.1;text-align:center;letter-spacing:.5px">{{ c.name }}</span>
+                    <div style="display:flex;gap:3px">
+                      <sc-for list="{{ c.pips }}" as="p" hint-placeholder-count="3">
+                        <span style="{{ p.style }}"></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ opt.empty }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:50px 0">
+                <p style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.9rem;letter-spacing:2px;text-align:center">NINGÚN CAMPEÓN COINCIDE</p>
+                <p style="color:#8b9ea8;font-size:.82rem;text-align:center">Prueba a quitar algún filtro.</p>
+                <button onClick="{{ opt.reset }}" style="margin-top:6px;height:44px;padding:0 20px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Limpiar filtros</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL DE DETALLE (compartido) ============ -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:32px;background:radial-gradient(circle at center,rgba(3,6,10,.72),rgba(2,3,5,.94));backdrop-filter:blur(3px);animation:fadeIn .2s ease">
+      <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:1080px;height:min(680px,88vh);display:flex;background:linear-gradient(180deg,#12100b 0%,#0a0a0c 100%);border:1px solid #785a28;box-shadow:0 0 0 1px #1c1710,0 30px 80px rgba(0,0,0,.85),inset 0 0 60px rgba(0,0,0,.6);clip-path:polygon(28px 0,calc(100% - 28px) 0,100% 28px,100% calc(100% - 28px),calc(100% - 28px) 100%,28px 100%,0 calc(100% - 28px),0 28px);animation:modalIn .3s cubic-bezier(.2,.8,.2,1)">
+        <div style="position:relative;width:42%;min-width:340px;overflow:hidden;border-right:1px solid #785a28">
+          <sc-if value="{{ selSplash }}" hint-placeholder-val="{{ false }}"><img src="{{ selSplash }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% center"/></sc-if>
+          <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,0) 55%,rgba(10,10,12,.95) 100%),linear-gradient(0deg,rgba(10,10,12,.96) 0%,rgba(10,10,12,0) 42%)"></div>
+          <div style="position:absolute;left:28px;right:20px;bottom:26px">
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid #0ac8b9;background:rgba(11,34,51,.55);color:#0ac8b9;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);margin-bottom:14px">{{ selRole }}</div>
+            <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:2.9rem;line-height:.95;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px #050402)">{{ selUpper }}</h2>
+            <p style="font-family:'Times New Roman',serif;font-style:italic;color:#c8aa6e;font-size:1.05rem;margin-top:4px;letter-spacing:1px">{{ selTitle }}</p>
+          </div>
+        </div>
+
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <div style="display:flex;align-items:center;gap:14px;padding:20px 26px 16px;border-bottom:1px solid rgba(120,90,40,.35)">
+            <sc-if value="{{ selIcon }}" hint-placeholder-val="{{ false }}"><img src="{{ selIcon }}" alt="" style="width:44px;height:44px;border:1px solid #c8aa6e;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.6)"/></sc-if>
+            <div style="flex:1;min-width:0">
+              <div style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:1.05rem;letter-spacing:1px;line-height:1">{{ selName }}</div>
+              <div style="color:#785a28;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;margin-top:3px">{{ selResource }}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="color:#8b9ea8;font-size:.62rem;letter-spacing:2px;text-transform:uppercase">Dificultad</div>
+              <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end">
+                <sc-for list="{{ selPips }}" as="p" hint-placeholder-count="3">
+                  <span style="{{ p.style }}"></span>
+                </sc-for>
+              </div>
+            </div>
+            <button onClick="{{ close }}" style="width:36px;height:36px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)" style-hover="filter:brightness(1.3)">✕</button>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:22px 26px 26px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.82rem;letter-spacing:3px;text-transform:uppercase">Estadísticas base</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;margin-bottom:26px">
+              <sc-for list="{{ selStats }}" as="s" hint-placeholder-count="6">
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px">
+                    <span style="color:#8b9ea8;font-size:.72rem;letter-spacing:1px;text-transform:uppercase">{{ s.label }}</span>
+                    <span style="color:#f0e6d2;font-family:'Times New Roman',serif;font-size:.95rem;font-weight:700">{{ s.value }}</span>
+                  </div>
+                  <div style="height:6px;background:#1a1c1f;border:1px solid #262a2e;position:relative;overflow:hidden">
+                    <div style="{{ s.barStyle }}"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.82rem;letter-spacing:3px;text-transform:uppercase">Habilidades</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:16px">
+              <sc-for list="{{ selAbilities }}" as="a" hint-placeholder-count="5">
+                <div onClick="{{ a.select }}" style="{{ a.wrapStyle }}">
+                  <sc-if value="{{ a.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ a.icon }}" alt="{{ a.name }}" style="width:100%;height:100%;object-fit:cover;display:block"/></sc-if>
+                  <span style="position:absolute;bottom:-1px;right:-1px;background:#0a0a0c;border:1px solid #785a28;color:#c8aa6e;font-size:.55rem;font-weight:700;padding:1px 4px;line-height:1.2">{{ a.key }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:linear-gradient(180deg,rgba(23,75,110,.14),rgba(11,34,51,.06));border:1px solid rgba(120,90,40,.4);border-left:2px solid #0ac8b9;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);padding:16px 18px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:8px">
+                <span style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:1rem;letter-spacing:1px">{{ abName }}</span>
+                <span style="color:#785a28;font-size:.68rem;letter-spacing:2px;text-transform:uppercase">{{ abMeta }}</span>
+              </div>
+              <p style="color:#b9b19d;font-size:.9rem;line-height:1.55;text-wrap:pretty">{{ abDesc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:2800,&quot;height&quot;:1220}}">
+const CDN = 'https://ddragon.leagueoflegends.com';
+const ROLES = { Fighter:'Luchador', Mage:'Mago', Marksman:'Tirador', Assassin:'Asesino', Tank:'Tanque', Support:'Soporte' };
+const STAT_LABELS = [
+  ['hp','Vida',700],['mp','Maná',500],['armor','Armadura',40],
+  ['spellblock','Resist. mágica',35],['attackdamage','Daño de ataque',70],['movespeed','Vel. de movimiento',400]
+];
+const DIFFS = [['all','Todas'],['low','Baja'],['mid','Media'],['high','Alta']];
+
+function chipStyle(active, opts) {
+  const o = opts || {};
+  return 'padding:' + (o.pad || '7px 13px') + ';font-size:' + (o.fs || '.62rem') + ';font-weight:700;letter-spacing:1.5px;'
+    + 'text-transform:uppercase;cursor:pointer;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%);'
+    + (o.h ? 'height:' + o.h + ';display:inline-flex;align-items:center;' : '')
+    + (active
+      ? 'background:linear-gradient(180deg,#123c58,#0b2233);border:1px solid #0ac8b9;color:#7de9df;box-shadow:inset 0 0 10px rgba(10,200,185,.35)'
+      : 'background:rgba(20,24,28,.8);border:1px solid #3e4b54;color:#8b9ea8');
+}
+
+class Component extends DCLogic {
+  state = {
+    champs: null, version: '', featIdx: 0, sel: null, detail: null, ab: 0, sheetOpen: false,
+    f: { q:'', role:'all', diff:'all', res:'all', sort:'az' }
+  };
+
+  componentDidMount() { this.load(); }
+
+  async load() {
+    try {
+      const vs = await (await fetch(CDN + '/api/versions.json')).json();
+      const version = vs[0];
+      const res = await (await fetch(CDN + '/cdn/' + version + '/data/es_ES/champion.json')).json();
+      const champs = Object.values(res.data);
+      this.setState({ version, champs, featIdx: Math.floor(Math.random() * champs.length) });
+    } catch (e) { this.setState({ champs: [] }); }
+  }
+
+  setF(patch) { this.setState(s => ({ f: Object.assign({}, s.f, patch) })); }
+
+  async open(c) {
+    this.setState({ sel: c, detail: null, ab: 0 });
+    try {
+      const r = await (await fetch(CDN + '/cdn/' + this.state.version + '/data/es_ES/champion/' + c.id + '.json')).json();
+      this.setState({ detail: r.data[c.id] });
+    } catch (e) {}
+  }
+
+  diffBucket(n) { return n <= 3 ? 'low' : n <= 7 ? 'mid' : 'high'; }
+
+  card(c) {
+    return {
+      id: c.id, name: c.name, title: c.title,
+      icon: this.state.version ? CDN + '/cdn/' + this.state.version + '/img/champion/' + c.image.full : '',
+      role: ROLES[(c.tags || [])[0]] || (c.tags || [])[0] || '—'
+    };
+  }
+
+  build() {
+    const f = this.state.f;
+    const all = this.state.champs || [];
+    const q = f.q.trim().toLowerCase();
+    const list = all.filter(c => {
+      if (q && c.name.toLowerCase().indexOf(q) === -1 && (c.title || '').toLowerCase().indexOf(q) === -1) return false;
+      if (f.role !== 'all' && (c.tags || []).indexOf(f.role) === -1) return false;
+      if (f.diff !== 'all' && this.diffBucket(c.info.difficulty) !== f.diff) return false;
+      if (f.res !== 'all' && c.partype !== f.res) return false;
+      return true;
+    });
+    const key = c => parseInt(c.key, 10);
+    if (f.sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+    else if (f.sort === 'za') list.sort((a, b) => b.name.localeCompare(a.name, 'es'));
+    else if (f.sort === 'new') list.sort((a, b) => key(b) - key(a));
+    else list.sort((a, b) => key(a) - key(b));
+
+    const cards = list.map(c => {
+      const card = {
+        id: c.id, name: c.name, title: c.title,
+        icon: this.card(c).icon,
+        role: this.card(c).role,
+        pips: [1,2,3].map(i => ({ style: 'width:12px;height:3px;background:' + (i <= Math.ceil(c.info.difficulty / 3.34) ? '#c8aa6e' : '#2a2e33') }))
+      };
+      card.open = () => this.open(card);
+      return card;
+    });
+
+    const roleKeys = ['all'].concat(Object.keys(ROLES));
+    const counts = {};
+    Object.keys(ROLES).forEach(k => counts[k] = all.filter(c => (c.tags || []).indexOf(k) !== -1).length);
+    const dirty = !!(q || f.role !== 'all' || f.diff !== 'all' || f.res !== 'all');
+
+    return {
+      q: f.q, res: f.res, sort: f.sort, list: cards, count: cards.length,
+      empty: !!(this.state.champs && cards.length === 0),
+      dirty: dirty,
+      heading: (f.role === 'all' ? 'Todos los campeones' : ROLES[f.role] + 's') + ' · ' + cards.length,
+      roleChips: roleKeys.map(k => ({
+        label: k === 'all' ? 'Todos' : ROLES[k],
+        style: chipStyle(f.role === k, { h: '40px' }),
+        mobileStyle: chipStyle(f.role === k, { h: '44px', pad: '0 14px', fs: '.65rem' }),
+        onClick: () => this.setF({ role: k })
+      })),
+      roleRows: roleKeys.map(k => ({
+        label: k === 'all' ? 'Todos los roles' : ROLES[k],
+        num: k === 'all' ? all.length : counts[k],
+        numStyle: 'font-size:.66rem;font-weight:700;color:' + (f.role === k ? '#7de9df' : '#5e6b74'),
+        style: 'display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 12px;cursor:pointer;'
+          + 'font-family:\'Times New Roman\',serif;font-size:.95rem;letter-spacing:.5px;text-align:left;'
+          + (f.role === k
+            ? 'background:linear-gradient(90deg,rgba(18,60,88,.85),rgba(11,34,51,.35));border:1px solid #0ac8b9;color:#f0e6d2'
+            : 'background:rgba(16,19,22,.6);border:1px solid #23282d;color:#8b9ea8'),
+        onClick: () => this.setF({ role: k })
+      })),
+      diffChips: DIFFS.map(d => ({
+        label: d[1],
+        style: chipStyle(f.diff === d[0], { h: '40px' }),
+        mobileStyle: chipStyle(f.diff === d[0], { h: '44px', pad: '0 14px', fs: '.65rem' }),
+        onClick: () => this.setF({ diff: d[0] })
+      })),
+      onQuery: e => this.setF({ q: e.target.value }),
+      onRes: e => this.setF({ res: e.target.value }),
+      onSort: e => this.setF({ sort: e.target.value }),
+      reset: () => this.setF({ q:'', role:'all', diff:'all', res:'all' })
+    };
+  }
+
+  renderVals() {
+    const { champs, version, featIdx, sel, detail, sheetOpen } = this.state;
+    const all = champs || [];
+    const feat = all[featIdx];
+    const resList = [];
+    all.forEach(c => { if (c.partype && resList.indexOf(c.partype) === -1) resList.push(c.partype); });
+
+    const d = detail;
+    const stats = d ? STAT_LABELS.map(([k, label, max]) => {
+      const v = d.stats[k] || 0;
+      return { label, value: Math.round(v), barStyle: 'position:absolute;inset:0 auto 0 0;width:' + Math.min(100, Math.round(v / max * 100)) + '%;background:linear-gradient(90deg,#785a28,#c8aa6e)' };
+    }) : [];
+
+    const abilities = d ? [{ name: d.passive.name, key:'P', desc: d.passive.description, icon: CDN + '/cdn/' + version + '/img/passive/' + d.passive.image.full, meta:'Pasiva' }]
+      .concat((d.spells || []).map((s, i) => ({
+        name: s.name, key: ['Q','W','E','R'][i], desc: s.description,
+        icon: CDN + '/cdn/' + version + '/img/spell/' + s.image.full,
+        meta: 'Enfr. ' + s.cooldownBurn + 's' + (s.costBurn && s.costBurn !== '0' ? ' · Coste ' + s.costBurn : '')
+      }))) : [];
+    const abIdx = Math.min(this.state.ab, Math.max(0, abilities.length - 1));
+    const ab = abilities[abIdx];
+    const strip = h => (h || '').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+    return {
+      loading: !champs,
+      total: all.length,
+      version: version || '—',
+      skeleton: Array.from({ length: 40 }, (_, i) => i),
+      resOptions: [{ value:'all', label:'Cualquier recurso' }].concat(resList.map(r => ({ value: r, label: r || 'Sin recurso' }))),
+      featName: feat ? feat.name : '',
+      featTitle: feat ? feat.title : '',
+      featBlurb: feat ? feat.blurb : '',
+      featSplash: feat ? CDN + '/cdn/img/champion/splash/' + feat.id + '_0.jpg' : '',
+      featLoading: feat ? CDN + '/cdn/img/champion/loading/' + feat.id + '_0.jpg' : '',
+      openFeat: e => { if (e) e.stopPropagation(); if (feat) this.open(this.card(feat)); },
+      sheetOpen: sheetOpen,
+      toggleSheet: () => this.setState(s => ({ sheetOpen: !s.sheetOpen })),
+      sheetBtnStyle: 'display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 14px;flex:none;cursor:pointer;'
+        + 'font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;'
+        + (sheetOpen
+          ? 'background:linear-gradient(180deg,#123c58,#0b2233);border:1px solid #0ac8b9;color:#7de9df'
+          : 'background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e'),
+      opt: this.build(),
+      modalOpen: !!sel,
+      close: () => this.setState({ sel: null, detail: null }),
+      stop: e => e.stopPropagation(),
+      selName: sel ? sel.name : '',
+      selUpper: sel ? sel.name.toUpperCase() : '',
+      selTitle: d ? d.title : (sel ? sel.title : ''),
+      selRole: sel ? sel.role || '' : '',
+      selResource: d ? d.partype : '',
+      selIcon: sel ? sel.icon : '',
+      selSplash: sel ? CDN + '/cdn/img/champion/splash/' + sel.id + '_0.jpg' : '',
+      selPips: d ? [1,2,3,4,5].map(i => ({ style: 'width:12px;height:12px;background:' + (i <= Math.ceil(d.info.difficulty / 2) ? 'linear-gradient(180deg,#f4d37c,#a27533)' : '#23282d') + ';border:1px solid #101518;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)' })) : [],
+      selStats: stats,
+      selAbilities: abilities.map((a, i) => ({
+        name: a.name, key: a.key, icon: a.icon,
+        wrapStyle: 'position:relative;width:52px;height:52px;flex:none;cursor:pointer;background:#000;'
+          + 'border:1px solid ' + (i === abIdx ? '#0ac8b9' : '#785a28') + ';'
+          + (i === abIdx ? 'box-shadow:0 0 0 1px #0ac8b9,0 0 14px rgba(10,200,185,.5)' : 'filter:saturate(.75) brightness(.85)'),
+        select: () => this.setState({ ab: i })
+      })),
+      abName: ab ? ab.name : '',
+      abMeta: ab ? ab.meta : '',
+      abDesc: ab ? strip(ab.desc) : ''
+    };
+  }
+}
+
+</script>
+</body>
+</html>

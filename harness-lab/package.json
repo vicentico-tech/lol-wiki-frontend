@@ -1,0 +1,16 @@
+{
+  "name": "harness-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/harness.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
