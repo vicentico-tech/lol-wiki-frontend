@@ -3,11 +3,10 @@ import { MainLayoutComponent } from './core/layout/main-layout/main-layout.compo
 import { AnalyticsService } from './core/services/analytics.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [MainLayoutComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [MainLayoutComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'lol-wiki-frontend';

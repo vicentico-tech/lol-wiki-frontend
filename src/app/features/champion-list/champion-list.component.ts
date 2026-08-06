@@ -36,11 +36,10 @@ function difficultyBucket(value: number): 'low' | 'mid' | 'high' {
 }
 
 @Component({
-  selector: 'app-champion-list',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ChampionDetailComponent],
-  templateUrl: './champion-list.component.html',
-  styleUrl: './champion-list.component.scss'
+    selector: 'app-champion-list',
+    imports: [CommonModule, FormsModule, ChampionDetailComponent],
+    templateUrl: './champion-list.component.html',
+    styleUrl: './champion-list.component.scss'
 })
 export class ChampionListComponent implements OnInit {
   champions: ChampionData[] = [];

@@ -11,11 +11,10 @@ interface Selection {
 }
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, SearchBarComponent, NavButtonComponent, ChampionDetailComponent, ItemDetailComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    imports: [CommonModule, SearchBarComponent, NavButtonComponent, ChampionDetailComponent, ItemDetailComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   selected: Selection | null = null;

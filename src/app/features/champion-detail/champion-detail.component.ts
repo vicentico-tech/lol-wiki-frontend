@@ -57,11 +57,10 @@ function statPct(value: number, max: number): number {
 }
 
 @Component({
-  selector: 'app-champion-detail',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './champion-detail.component.html',
-  styleUrl: './champion-detail.component.scss'
+    selector: 'app-champion-detail',
+    imports: [CommonModule],
+    templateUrl: './champion-detail.component.html',
+    styleUrl: './champion-detail.component.scss'
 })
 export class ChampionDetailComponent implements OnInit, OnDestroy {
   @Input()

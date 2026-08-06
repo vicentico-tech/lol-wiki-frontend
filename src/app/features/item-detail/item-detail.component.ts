@@ -107,11 +107,10 @@ function formatGold(amount: number | undefined): string {
 }
 
 @Component({
-  selector: 'app-item-detail',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './item-detail.component.html',
-  styleUrl: './item-detail.component.scss'
+    selector: 'app-item-detail',
+    imports: [CommonModule],
+    templateUrl: './item-detail.component.html',
+    styleUrl: './item-detail.component.scss'
 })
 export class ItemDetailComponent implements OnInit, OnDestroy {
   @Input()
