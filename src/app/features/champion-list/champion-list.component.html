@@ -2,7 +2,7 @@
   <div class="bg-image"></div>
   <div class="bg-veil"></div>
 
-  <ng-container *ngIf="isDesktop; else topbarLayout">
+  <ng-container *ngIf="isDesktop(); else topbarLayout">
     <div class="desktop-layout">
       <aside class="sidebar">
         <div class="sidebar-header">
@@ -11,22 +11,22 @@
             Volver al inicio
           </button>
           <h1 class="sidebar-title">CAMPEONES</h1>
-          <p class="sidebar-subtitle">{{ filteredChampions.length }} de {{ champions.length }} · parche {{ version || '—' }}</p>
+          <p class="sidebar-subtitle">{{ filteredChampions().length }} de {{ champions().length }} · parche {{ version() || '—' }}</p>
         </div>
 
         <div class="sidebar-body">
           <div class="search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" [(ngModel)]="filters.q" placeholder="Buscar campeón...">
+            <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar campeón...">
           </div>
 
           <div class="filter-section">
             <div class="filter-heading"><span>Rol</span><span class="line"></span></div>
             <button
               class="role-row"
-              *ngFor="let role of roleOptions"
-              [class.role-row-active]="filters.role === role.key"
-              (click)="setRole(role.key)">
+              *ngFor="let role of roleOptions()"
+              [class.role-row-active]="filters().role === role.key"
+              (click)="setFilter('role', role.key)">
               <span>{{ role.label }}</span>
               <span class="role-count">{{ role.count }}</span>
             </button>
@@ -35,24 +35,24 @@
           <div class="filter-section">
             <div class="filter-heading"><span>Dificultad</span><span class="line"></span></div>
             <div class="chip-row">
-              <button class="chip" [class.chip-active]="filters.diff === 'all'" (click)="setDifficulty('all')">Todas</button>
-              <button class="chip" [class.chip-active]="filters.diff === 'low'" (click)="setDifficulty('low')">Baja</button>
-              <button class="chip" [class.chip-active]="filters.diff === 'mid'" (click)="setDifficulty('mid')">Media</button>
-              <button class="chip" [class.chip-active]="filters.diff === 'high'" (click)="setDifficulty('high')">Alta</button>
+              <button class="chip" [class.chip-active]="filters().diff === 'all'" (click)="setFilter('diff', 'all')">Todas</button>
+              <button class="chip" [class.chip-active]="filters().diff === 'low'" (click)="setFilter('diff', 'low')">Baja</button>
+              <button class="chip" [class.chip-active]="filters().diff === 'mid'" (click)="setFilter('diff', 'mid')">Media</button>
+              <button class="chip" [class.chip-active]="filters().diff === 'high'" (click)="setFilter('diff', 'high')">Alta</button>
             </div>
           </div>
 
           <div class="filter-section">
             <div class="filter-heading"><span>Recurso</span><span class="line"></span></div>
-            <select class="select-dark" [(ngModel)]="filters.res">
+            <select class="select-dark" [ngModel]="filters().res" (ngModelChange)="setFilter('res', $event)">
               <option value="all">Cualquier recurso</option>
-              <option *ngFor="let res of resourceOptions" [value]="res">{{ res }}</option>
+              <option *ngFor="let res of resourceOptions()" [value]="res">{{ res }}</option>
             </select>
           </div>
 
           <div class="filter-section">
             <div class="filter-heading"><span>Orden</span><span class="line"></span></div>
-            <select class="select-dark" [(ngModel)]="filters.sort">
+            <select class="select-dark" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
               <option value="az">A → Z</option>
               <option value="za">Z → A</option>
               <option value="new">Más recientes</option>
@@ -62,13 +62,13 @@
 
           <div class="sidebar-spacer"></div>
 
-          <div class="featured-card" *ngIf="featured" (click)="openFeatured()">
-            <img [src]="featuredArtUrl('loading')" [alt]="featured.name">
+          <div class="featured-card" *ngIf="featured() as f" (click)="openFeatured()">
+            <img [src]="featuredArtUrl('loading')" [alt]="f.name">
             <div class="featured-gradient"></div>
             <span class="featured-badge">Destacado</span>
             <div class="featured-info">
-              <h4>{{ featured.name }}</h4>
-              <p>{{ featured.title }}</p>
+              <h4>{{ f.name }}</h4>
+              <p>{{ f.title }}</p>
             </div>
           </div>
         </div>
@@ -76,9 +76,9 @@
 
       <main class="content">
         <div class="content-header">
-          <span class="content-heading">{{ headingText }}</span>
+          <span class="content-heading">{{ headingText() }}</span>
           <span class="line"></span>
-          <button class="reset-btn" *ngIf="filtersDirty" (click)="resetFilters()">Limpiar filtros</button>
+          <button class="reset-btn" *ngIf="filtersDirty()" (click)="resetFilters()">Limpiar filtros</button>
         </div>
         <div class="content-scroll">
           <ng-container *ngTemplateOutlet="championGrid"></ng-container>
@@ -95,48 +95,48 @@
         </button>
         <div class="topbar-title">
           <h1>CAMPEONES</h1>
-          <p>{{ filteredChampions.length }} de {{ champions.length }}</p>
+          <p>{{ filteredChampions().length }} de {{ champions().length }}</p>
         </div>
       </header>
 
       <div class="topbar-controls">
         <div class="search-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" [(ngModel)]="filters.q" placeholder="Buscar campeón...">
+          <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar campeón...">
         </div>
-        <button class="filters-toggle" [class.filters-toggle-active]="filtersOpen" (click)="toggleFilters()">
+        <button class="filters-toggle" [class.filters-toggle-active]="filtersOpen()" (click)="toggleFilters()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>
           Filtros
         </button>
       </div>
 
-      <div class="filters-sheet" *ngIf="filtersOpen">
+      <div class="filters-sheet" *ngIf="filtersOpen()">
         <div class="filter-section">
           <span class="filter-heading-sm">Rol</span>
           <div class="chip-row">
             <button
               class="chip chip-mobile"
-              *ngFor="let role of roleOptions"
-              [class.chip-active]="filters.role === role.key"
-              (click)="setRole(role.key)">{{ role.label }}</button>
+              *ngFor="let role of roleOptions()"
+              [class.chip-active]="filters().role === role.key"
+              (click)="setFilter('role', role.key)">{{ role.label }}</button>
           </div>
         </div>
         <div class="filter-section">
           <span class="filter-heading-sm">Dificultad</span>
           <div class="chip-row">
-            <button class="chip chip-mobile" [class.chip-active]="filters.diff === 'all'" (click)="setDifficulty('all')">Todas</button>
-            <button class="chip chip-mobile" [class.chip-active]="filters.diff === 'low'" (click)="setDifficulty('low')">Baja</button>
-            <button class="chip chip-mobile" [class.chip-active]="filters.diff === 'mid'" (click)="setDifficulty('mid')">Media</button>
-            <button class="chip chip-mobile" [class.chip-active]="filters.diff === 'high'" (click)="setDifficulty('high')">Alta</button>
+            <button class="chip chip-mobile" [class.chip-active]="filters().diff === 'all'" (click)="setFilter('diff', 'all')">Todas</button>
+            <button class="chip chip-mobile" [class.chip-active]="filters().diff === 'low'" (click)="setFilter('diff', 'low')">Baja</button>
+            <button class="chip chip-mobile" [class.chip-active]="filters().diff === 'mid'" (click)="setFilter('diff', 'mid')">Media</button>
+            <button class="chip chip-mobile" [class.chip-active]="filters().diff === 'high'" (click)="setFilter('diff', 'high')">Alta</button>
           </div>
         </div>
         <div class="filter-section">
           <span class="filter-heading-sm">Recurso y orden</span>
-          <select class="select-dark select-block" [(ngModel)]="filters.res">
+          <select class="select-dark select-block" [ngModel]="filters().res" (ngModelChange)="setFilter('res', $event)">
             <option value="all">Cualquier recurso</option>
-            <option *ngFor="let res of resourceOptions" [value]="res">{{ res }}</option>
+            <option *ngFor="let res of resourceOptions()" [value]="res">{{ res }}</option>
           </select>
-          <select class="select-dark select-block" [(ngModel)]="filters.sort">
+          <select class="select-dark select-block" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
             <option value="az">A → Z</option>
             <option value="za">Z → A</option>
             <option value="new">Más recientes</option>
@@ -147,13 +147,13 @@
       </div>
 
       <div class="topbar-scroll">
-        <div class="featured-banner" *ngIf="featured" (click)="openFeatured()">
-          <img [src]="featuredArtUrl('splash')" [alt]="featured.name">
+        <div class="featured-banner" *ngIf="featured() as f" (click)="openFeatured()">
+          <img [src]="featuredArtUrl('splash')" [alt]="f.name">
           <div class="featured-banner-gradient"></div>
           <span class="featured-badge">Destacado</span>
           <div class="featured-banner-info">
-            <h3>{{ featured.name }}</h3>
-            <p>{{ featured.title }}</p>
+            <h3>{{ f.name }}</h3>
+            <p>{{ f.title }}</p>
           </div>
         </div>
 
@@ -163,18 +163,18 @@
   </ng-template>
 
   <ng-template #championGrid>
-    <div class="skeleton-grid" *ngIf="loading">
+    <div class="skeleton-grid" *ngIf="loading()">
       <div class="skeleton-cell" *ngFor="let s of skeletonItems">
         <div class="skeleton-icon"></div>
         <div class="skeleton-name"></div>
       </div>
     </div>
 
-    <ng-container *ngIf="!loading">
-      <div class="champion-grid" *ngIf="filteredChampions.length; else emptyState">
-        <div class="champion-card" *ngFor="let champion of filteredChampions" (click)="openChampion(champion)">
+    <ng-container *ngIf="!loading()">
+      <div class="champion-grid" *ngIf="filteredChampions().length; else emptyState">
+        <div class="champion-card" *ngFor="let champion of filteredChampions()" (click)="openChampion(champion)">
           <div class="champion-icon">
-            <img *ngIf="version" [src]="iconUrl(champion)" [alt]="champion.name">
+            <img *ngIf="version()" [src]="iconUrl(champion)" [alt]="champion.name">
           </div>
           <div class="champion-meta">
             <span class="champion-name">{{ champion.name }}</span>
@@ -197,9 +197,12 @@
     </ng-container>
   </ng-template>
 
-  <app-champion-detail
-    *ngIf="selectedId"
-    [championId]="selectedId"
-    (close)="selectedId = null">
-  </app-champion-detail>
+  @defer (when selectedId()) {
+    @if (selectedId(); as id) {
+      <app-champion-detail
+        [championId]="id"
+        (close)="closeChampion()">
+      </app-champion-detail>
+    }
+  }
 </div>

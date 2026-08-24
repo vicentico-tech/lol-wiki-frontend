@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { NavButtonComponent } from '../../shared/components/nav-button/nav-button.component';
@@ -11,19 +11,24 @@ interface Selection {
 }
 
 @Component({
-    selector: 'app-home',
-    imports: [CommonModule, SearchBarComponent, NavButtonComponent, ChampionDetailComponent, ItemDetailComponent],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+  selector: 'app-home',
+  imports: [CommonModule, SearchBarComponent, NavButtonComponent, ChampionDetailComponent, ItemDetailComponent],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  selected: Selection | null = null;
+  readonly selected = signal<Selection | null>(null);
 
   onChampionSelected(id: string): void {
-    this.selected = { type: 'champion', id };
+    this.selected.set({ type: 'champion', id });
   }
 
   onItemSelected(id: string): void {
-    this.selected = { type: 'item', id };
+    this.selected.set({ type: 'item', id });
+  }
+
+  closeModal(): void {
+    this.selected.set(null);
   }
 }

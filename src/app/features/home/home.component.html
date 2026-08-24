@@ -10,17 +10,27 @@
     (itemSelected)="onItemSelected($event)">
   </app-search-bar>
 
-  <app-champion-detail
-    *ngIf="selected?.type === 'champion'"
-    [championId]="selected!.id"
-    (close)="selected = null">
-  </app-champion-detail>
+  @defer (when selected()?.type === 'champion') {
+    @if (selected(); as s) {
+      @if (s.type === 'champion') {
+        <app-champion-detail
+          [championId]="s.id"
+          (close)="closeModal()">
+        </app-champion-detail>
+      }
+    }
+  }
 
-  <app-item-detail
-    *ngIf="selected?.type === 'item'"
-    [itemId]="selected!.id"
-    (close)="selected = null">
-  </app-item-detail>
+  @defer (when selected()?.type === 'item') {
+    @if (selected(); as s) {
+      @if (s.type === 'item') {
+        <app-item-detail
+          [itemId]="s.id"
+          (close)="closeModal()">
+        </app-item-detail>
+      }
+    }
+  }
 
   <div class="bottom-section">
     <div class="featured-box">
