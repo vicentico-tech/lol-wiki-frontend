@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { RiotDataService } from '../../core/services/riot-data.service';
 import { AnalyticsService } from '../../core/services/analytics.service';
 import { ItemDetailData } from '../../interfaces/riot-data.interface'
@@ -128,12 +128,15 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
 
   @Output() close = new EventEmitter<void>();
 
+  @ViewChild('bodyScroll') private bodyScroll?: ElementRef<HTMLElement>;
+
   item: ParsedItem | null = null;
   loading = true;
 
   constructor(
     private riotService: RiotDataService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -153,12 +156,18 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     this.close.emit();
   }
 
+  openRelated(id: string): void {
+    this.itemId = id;
+  }
+
   private loadItem(id: string): void {
     this.loading = true;
     this.riotService.getItemDetail(id).subscribe({
       next: ({ version, item, all }) => {
         this.item = this.parseItem(id, item, all, version);
         this.loading = false;
+        this.cdr.markForCheck();
+        this.bodyScroll?.nativeElement.scrollTo({ top: 0 });
 
         this.analytics.pushEvent({
           event: 'view_item_detail',
@@ -168,6 +177,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.loading = false;
+        this.cdr.markForCheck();
       }
     });
   }

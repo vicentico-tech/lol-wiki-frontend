@@ -1,1 +1,222 @@
-<p>item-list works!</p>
+<div class="item-list-page">
+  <div class="bg-image"></div>
+  <div class="bg-veil"></div>
+
+  <ng-container *ngIf="isDesktop(); else topbarLayout">
+    <div class="desktop-layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <button class="back-link" (click)="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6L9 12l6 6"></path></svg>
+            Volver al inicio
+          </button>
+          <h1 class="sidebar-title">OBJETOS</h1>
+          <p class="sidebar-subtitle">{{ filteredItems().length }} de {{ items().length }} · parche {{ version() || '—' }}</p>
+        </div>
+
+        <div class="sidebar-body">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar objeto...">
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-heading"><span>Categoría</span><span class="line"></span></div>
+            <button
+              class="cat-row"
+              *ngFor="let cat of categoryOptions()"
+              [class.cat-row-active]="filters().cat === cat.key"
+              (click)="setFilter('cat', cat.key)">
+              <span>{{ cat.label }}</span>
+              <span class="cat-count">{{ cat.count }}</span>
+            </button>
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-heading"><span>Tipo</span><span class="line"></span></div>
+            <div class="chip-row">
+              <button
+                class="chip"
+                *ngFor="let tier of tierOptions"
+                [class.chip-active]="filters().tier === tier.key"
+                (click)="setFilter('tier', tier.key)">{{ tier.label }}</button>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-heading"><span>Precio</span><span class="line"></span></div>
+            <div class="chip-row">
+              <button
+                class="chip"
+                *ngFor="let price of priceOptions"
+                [class.chip-active]="filters().price === price.key"
+                (click)="setFilter('price', price.key)">{{ price.label }}</button>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-heading"><span>Orden</span><span class="line"></span></div>
+            <select class="select-dark" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="az">Nombre: A → Z</option>
+              <option value="za">Nombre: Z → A</option>
+            </select>
+            <button class="final-toggle" [class.final-toggle-active]="filters().onlyFinal" (click)="toggleFinal()">
+              <span class="final-dot"></span>
+              Solo objetos finales
+            </button>
+          </div>
+
+          <div class="filter-section" *ngIf="featured() as f">
+            <div class="filter-heading"><span>Destacado</span><span class="line"></span></div>
+            <div class="featured-card" (click)="openFeatured()">
+              <img *ngIf="version()" [src]="f.iconUrl" [alt]="f.name">
+              <div class="featured-info">
+                <span class="featured-badge">Destacado</span>
+                <h4>{{ f.name }}</h4>
+                <p>{{ f.price }} PO</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content-header">
+          <span class="content-heading">{{ headingText() }}</span>
+          <span class="line"></span>
+          <button class="reset-btn" *ngIf="filtersDirty()" (click)="resetFilters()">Limpiar filtros</button>
+        </div>
+        <div class="content-scroll">
+          <ng-container *ngTemplateOutlet="itemGrid"></ng-container>
+        </div>
+      </main>
+    </div>
+  </ng-container>
+
+  <ng-template #topbarLayout>
+    <div class="topbar-layout">
+      <header class="topbar">
+        <button class="icon-btn" (click)="goHome()" aria-label="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6L9 12l6 6"></path></svg>
+        </button>
+        <div class="topbar-title">
+          <h1>OBJETOS</h1>
+          <p>{{ filteredItems().length }} de {{ items().length }}</p>
+        </div>
+      </header>
+
+      <div class="topbar-controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar objeto...">
+        </div>
+        <button class="filters-toggle" [class.filters-toggle-active]="filtersOpen()" (click)="toggleFilters()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>
+          <span>Filtros</span>
+        </button>
+      </div>
+
+      <div class="filters-sheet" [class.filters-sheet-open]="filtersOpen()">
+        <div class="filter-section">
+          <span class="filter-heading-sm">Categoría</span>
+          <div class="chip-row">
+            <button
+              class="chip chip-touch"
+              *ngFor="let cat of categoryOptions()"
+              [class.chip-active]="filters().cat === cat.key"
+              (click)="setFilter('cat', cat.key)">{{ cat.label }}</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <span class="filter-heading-sm">Tipo y precio</span>
+          <div class="chip-row">
+            <button
+              class="chip chip-touch"
+              *ngFor="let tier of tierOptions"
+              [class.chip-active]="filters().tier === tier.key"
+              (click)="setFilter('tier', tier.key)">{{ tier.label }}</button>
+            <button
+              class="chip chip-touch"
+              *ngFor="let price of priceOptions"
+              [class.chip-active]="filters().price === price.key"
+              (click)="setFilter('price', price.key)">{{ price.label }}</button>
+          </div>
+        </div>
+        <div class="filter-section sheet-actions">
+          <select class="select-dark select-touch" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="az">Nombre: A → Z</option>
+            <option value="za">Nombre: Z → A</option>
+          </select>
+          <button class="final-toggle final-toggle-touch" [class.final-toggle-active]="filters().onlyFinal" (click)="toggleFinal()">
+            <span class="final-dot"></span>
+            Solo objetos finales
+          </button>
+          <button class="reset-btn reset-btn-block" (click)="resetFilters()">Limpiar filtros</button>
+        </div>
+      </div>
+
+      <div class="topbar-scroll">
+        <div class="featured-banner" *ngIf="featured() as f" (click)="openFeatured()">
+          <img *ngIf="version()" [src]="f.iconUrl" [alt]="f.name">
+          <div class="featured-banner-info">
+            <span class="featured-badge">Destacado</span>
+            <h3>{{ f.name }}</h3>
+            <p *ngIf="f.plaintext">{{ f.plaintext }}</p>
+          </div>
+          <span class="featured-banner-price">{{ f.price }} PO</span>
+        </div>
+
+        <div class="grid-heading">
+          <span class="content-heading">{{ headingText() }}</span>
+          <span class="line"></span>
+          <button class="reset-btn" *ngIf="filtersDirty()" (click)="resetFilters()">Limpiar filtros</button>
+        </div>
+
+        <ng-container *ngTemplateOutlet="itemGrid"></ng-container>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #itemGrid>
+    <div class="skeleton-grid" *ngIf="loading()">
+      <div class="skeleton-cell" *ngFor="let s of skeletonItems">
+        <div class="skeleton-icon"></div>
+        <div class="skeleton-name"></div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!loading()">
+      <div class="item-grid" *ngIf="filteredItems().length; else emptyState">
+        <div class="item-card" *ngFor="let item of filteredItems(); trackBy: trackById" (click)="openItem(item)">
+          <div class="item-icon">
+            <img *ngIf="version()" [src]="item.iconUrl" [alt]="item.name" loading="lazy">
+            <span class="rarity-bar" [attr.data-rarity]="item.rarity"></span>
+          </div>
+          <span class="item-name">{{ item.name }}</span>
+          <span class="item-price"><span class="coin"></span>{{ item.price }}</span>
+        </div>
+      </div>
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <div class="empty-icon"></div>
+          <p class="empty-title">NINGÚN OBJETO COINCIDE</p>
+          <p class="empty-desc">Prueba a quitar algún filtro o a ampliar el rango de precio.</p>
+          <button class="reset-btn reset-btn-cta" (click)="resetFilters()">Limpiar filtros</button>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+
+  @defer (when selectedId()) {
+    @if (selectedId(); as id) {
+      <app-item-detail
+        [itemId]="id"
+        (close)="closeItem()">
+      </app-item-detail>
+    }
+  }
+</div>

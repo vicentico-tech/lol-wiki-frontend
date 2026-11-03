@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { RiotDataService } from '../../core/services/riot-data.service';
 import { AnalyticsService } from '../../core/services/analytics.service';
 import { ChampionDetailData } from '../../interfaces/riot-data.interface'
@@ -84,7 +84,8 @@ export class ChampionDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private riotService: RiotDataService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -123,6 +124,8 @@ export class ChampionDetailComponent implements OnInit, OnDestroy {
         this.champion = this.parseChampion(champion, version);
         this.loading = false;
 
+        this.cdr.markForCheck();
+
         this.analytics.pushEvent({
           event: 'view_champion_detail',
           champion_id: this.champion.id,
@@ -131,6 +134,7 @@ export class ChampionDetailComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.loading = false;
+        this.cdr.markForCheck();
       }
     });
   }

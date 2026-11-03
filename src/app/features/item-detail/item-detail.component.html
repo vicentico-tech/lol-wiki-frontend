@@ -5,7 +5,7 @@
       <!-- Cabecera -->
       <div class="header">
         <div class="item-icon-frame">
-          <img [src]="item.iconUrl" [alt]="item.name">
+          <img *ngIf="item.iconUrl" [src]="item.iconUrl" [alt]="item.name">
         </div>
         <div class="header-info">
           <h2 class="item-name lol-gold-text">{{ item.name }}</h2>
@@ -24,7 +24,7 @@
       </div>
 
       <!-- Cuerpo scrollable -->
-      <div class="body-scroll">
+      <div class="body-scroll" #bodyScroll>
         <!-- Estadísticas -->
         <ng-container *ngIf="item.stats.length">
           <div class="section-header">
@@ -40,7 +40,7 @@
         </ng-container>
 
         <!-- Descripción -->
-        <div class="item-desc">
+        <div class="item-desc" *ngIf="item.desc">
           <p>{{ item.desc }}</p>
         </div>
 
@@ -51,10 +51,10 @@
             <span class="section-line"></span>
           </div>
           <div class="related-row">
-            <div class="related-item" *ngFor="let comp of item.from">
-              <img [src]="comp.icon" [alt]="comp.name">
+            <button type="button" class="related-item" *ngFor="let comp of item.from" (click)="openRelated(comp.id)">
+              <img *ngIf="comp.icon" [src]="comp.icon" [alt]="comp.name">
               <span>{{ comp.name }}</span>
-            </div>
+            </button>
           </div>
         </ng-container>
 
@@ -65,10 +65,10 @@
             <span class="section-line"></span>
           </div>
           <div class="related-row">
-            <div class="related-item" *ngFor="let next of item.into">
-              <img [src]="next.icon" [alt]="next.name">
+            <button type="button" class="related-item" *ngFor="let next of item.into" (click)="openRelated(next.id)">
+              <img *ngIf="next.icon" [src]="next.icon" [alt]="next.name">
               <span>{{ next.name }}</span>
-            </div>
+            </button>
           </div>
         </ng-container>
       </div>
