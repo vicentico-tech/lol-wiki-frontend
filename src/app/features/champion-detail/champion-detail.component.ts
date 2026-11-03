@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ChampionDetailData, RiotDataService } from '../../core/services/riot-data.service';
+import { RiotDataService } from '../../core/services/riot-data.service';
 import { AnalyticsService } from '../../core/services/analytics.service';
+import { ChampionDetailData } from '../../interfaces/riot-data.interface'
 
 interface StatRow {
   label: string;

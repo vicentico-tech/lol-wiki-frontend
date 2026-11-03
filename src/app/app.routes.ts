@@ -7,5 +7,10 @@ export const routes: Routes = [
     path: 'campeones',
     loadComponent: () =>
       import('./features/champion-list/champion-list.component').then(m => m.ChampionListComponent)
-  }
+  },
+  {
+    path: 'objetos',
+    loadComponent: () =>
+      import('./features/item-list/item-list.component').then(m => m.ItemListComponent)
+  },
 ];

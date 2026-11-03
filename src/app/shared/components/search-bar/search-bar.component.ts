@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { RiotDataService, ChampionData, ItemData } from '../../../core/services/riot-data.service';
+import { RiotDataService } from '../../../core/services/riot-data.service';
+import type { ChampionData, ItemData } from '../../../interfaces/riot-data.interface';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface SearchResult {

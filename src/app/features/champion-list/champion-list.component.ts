@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit, computed, sig
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ChampionData, RiotDataService } from '../../core/services/riot-data.service';
+import { RiotDataService } from '../../core/services/riot-data.service';
 import { AnalyticsService } from '../../core/services/analytics.service';
 import { ChampionDetailComponent } from '../champion-detail/champion-detail.component';
+import { ChampionData } from '../../interfaces/riot-data.interface';
 
 interface Filters {
   q: string;
