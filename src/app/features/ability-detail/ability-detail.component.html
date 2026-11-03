@@ -1,0 +1,40 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="header">
+      <div class="ability-icon">
+        @if (ability.icon) {
+          <img [src]="ability.icon" [alt]="ability.name">
+        }
+      </div>
+      <div class="header-info">
+        <h2 class="ability-name">{{ ability.name }}</h2>
+        <div class="tags-row">
+          <span class="tag-chip">{{ keyLabel }}</span>
+          <span class="tag-chip tag-owner">{{ ability.owner }}</span>
+        </div>
+      </div>
+      <button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="body-scroll">
+      <div class="stats-grid">
+        @for (stat of ability.stats; track stat.label) {
+          <div class="stat-row">
+            <span class="stat-label">{{ stat.label }}</span>
+            <span class="stat-value">{{ stat.value }}</span>
+          </div>
+        }
+      </div>
+
+      @if (ability.desc) {
+        <div class="ability-desc">
+          <p>{{ ability.desc }}</p>
+        </div>
+      }
+
+      @if (ability.ownerId) {
+        <button class="owner-btn" (click)="viewChampion()">Ver campeón · {{ ability.owner }}</button>
+      }
+    </div>
+  </div>
+</div>

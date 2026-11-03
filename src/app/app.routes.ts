@@ -13,4 +13,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/item-list/item-list.component').then(m => m.ItemListComponent)
   },
+  {
+    path: 'habilidades',
+    loadComponent: () =>
+      import('./features/ability-list/ability-list.component').then(m => m.AbilityListComponent)
+  },
 ];

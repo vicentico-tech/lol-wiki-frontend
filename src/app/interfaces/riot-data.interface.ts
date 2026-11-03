@@ -63,6 +63,36 @@ export interface ParsedItem {
   isFinal: boolean;
 }
 
+export type AbilityKey = 'P' | 'Q' | 'W' | 'E' | 'R' | 'S';
+
+export interface AbilityRow {
+  id: string;
+  key: AbilityKey;
+  name: string;
+  owner: string;
+  ownerId: string | null;
+  icon: string;
+  desc: string;
+  cost: 'mana' | 'energy' | 'hp' | 'none' | 'other';
+  range: 'self' | 'short' | 'mid' | 'long';
+  cd: number;
+  stats: { label: string; value: string }[];
+}
+
+export interface AbilityCatalog {
+  version: string;
+  spells: AbilityRow[];
+  summoners: AbilityRow[];
+}
+
+export interface AbilityFilters {
+  q: string;
+  key: 'all' | 'P' | 'Q' | 'W' | 'E' | 'R';
+  cost: 'all' | AbilityRow['cost'];
+  range: 'all' | AbilityRow['range'];
+  sort: 'champ' | 'az' | 'cd-asc' | 'cd-desc';
+}
+
 export interface Filters {
   q: string;
   cat: string;                                    // 'all' o un tag como 'Damage', 'Health'...

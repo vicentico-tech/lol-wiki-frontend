@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#07080a;color:#f0e6d2;font-family:'Roboto',sans-serif}
+  a{color:#0ac8b9;text-decoration:none}
+  a:hover{color:#f0e6d2}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:#0b1116}
+  ::-webkit-scrollbar-thumb{background:#3e4b54;border-radius:4px}
+  @keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes sheetIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  @keyframes pulseSk{0%,100%{opacity:.35}50%{opacity:.7}}
+  input,select,button{font-family:'Roboto',sans-serif}
+</style>
+</helmet>
+
+<section style="padding:48px;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+    <h1 style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:1.1rem;letter-spacing:4px;text-transform:uppercase">Vista de Habilidades · responsive</h1>
+    <span style="color:#5e6b74;font-size:.8rem">Ruta /habilidades · datos reales de Data Dragon (es_ES, championFull.json + summoner.json) · los tres tamaños comparten el mismo estado</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+    <!-- ================= DESKTOP ================= -->
+    <div id="4a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:1px">4a</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Desktop · 1440×900</span>
+        <span style="color:#5e6b74;font-size:.82rem">Panel lateral fijo · rejilla de 9 columnas</span>
+      </div>
+
+      <div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.22"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,4,6,.97) 0%,rgba(3,4,6,.8) 30%,rgba(3,4,6,.94) 100%)"></div>
+
+        <div style="position:relative;height:100%;display:flex">
+          <div style="width:296px;flex:none;height:100%;display:flex;flex-direction:column;border-right:1px solid rgba(120,90,40,.4);background:linear-gradient(180deg,rgba(18,16,11,.9),rgba(8,8,10,.95))">
+            <div style="padding:26px 22px 18px;border-bottom:1px solid rgba(120,90,40,.3)">
+              <button style="display:flex;align-items:center;gap:8px;background:none;border:none;color:#8b9ea8;font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;margin-bottom:16px" style-hover="color:#0ac8b9">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px"><path d="M15 6L9 12l6 6"></path></svg>
+                Volver al inicio
+              </button>
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.85rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">HABILIDADES</h2>
+              <p style="color:#785a28;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;margin-top:7px">{{ meta }}</p>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:18px 22px 22px;display:flex;flex-direction:column;gap:22px">
+              <div style="display:flex;gap:6px">
+                <button onClick="{{ pickSpells }}" style="{{ tabSpellsStyle }}">Campeones</button>
+                <button onClick="{{ pickSumm }}" style="{{ tabSummStyle }}">Invocador</button>
+              </div>
+
+              <div style="position:relative;height:38px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(11px 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%,0 11px);display:flex;align-items:center;padding:0 12px;gap:9px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2" style="width:15px;height:15px;flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+                <input value="{{ q }}" onChange="{{ onQ }}" placeholder="Habilidad o campeón…" style="flex:1;background:none;border:none;outline:none;color:#c4d3df;font-size:.85rem"/>
+              </div>
+
+              <sc-if value="{{ isSpells }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                    <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Tecla</span>
+                    <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:5px">
+                    <sc-for list="{{ keys }}" as="c" hint-placeholder-count="6">
+                      <button onClick="{{ c.pick }}" style="{{ c.rowStyle }}">
+                        <span>{{ c.label }}</span>
+                        <span style="{{ c.numStyle }}">{{ c.count }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                    <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Coste</span>
+                    <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ costs }}" as="t" hint-placeholder-count="5">
+                      <button onClick="{{ t.pick }}" style="{{ t.chipStyle }}">{{ t.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                    <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Alcance</span>
+                    <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ ranges }}" as="p" hint-placeholder-count="5">
+                      <button onClick="{{ p.pick }}" style="{{ p.chipStyle }}">{{ p.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div>
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Orden</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                </div>
+                <select value="{{ sort }}" onChange="{{ onSort }}" style="width:100%;height:34px;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.8rem;padding:0 9px;outline:none;cursor:pointer">
+                  <option value="champ">Campeón: A → Z</option>
+                  <option value="az">Habilidad: A → Z</option>
+                  <option value="cd-asc">Enfriamiento: menor a mayor</option>
+                  <option value="cd-desc">Enfriamiento: mayor a menor</option>
+                </select>
+              </div>
+
+              <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                    <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase">Destacada</span>
+                    <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.45),transparent)"></span>
+                  </div>
+                  <div onClick="{{ openFeatured }}" style="position:relative;padding:18px 16px;display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,rgba(18,60,88,.5),rgba(11,17,22,.9));border:1px solid rgba(120,90,40,.5);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);cursor:pointer" style-hover="border-color:#c8aa6e">
+                    {{ featImgDesk }}
+                    <div style="min-width:0">
+                      <div style="display:inline-block;padding:2px 8px;border:1px solid #0ac8b9;color:#0ac8b9;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Definitiva</div>
+                      <div style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:.92rem;line-height:1.2">{{ featName }}</div>
+                      <div style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:.85rem;margin-top:3px">{{ featSub }}</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:14px;padding:30px 34px 16px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.8rem;letter-spacing:3.5px;text-transform:uppercase">{{ heading }}</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+              <sc-if value="{{ dirty }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ reset }}" style="height:30px;padding:0 14px;background:transparent;border:1px solid #3e4b54;color:#8b9ea8;font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer" style-hover="border-color:#c8aa6e;color:#c8aa6e">Limpiar filtros</button>
+              </sc-if>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:6px 34px 34px">
+              <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:22px 14px">
+                  <sc-for list="{{ skeleton }}" as="s" hint-placeholder-count="27">
+                    <div>
+                      <div style="aspect-ratio:1;background:#161a1e;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                      <div style="height:9px;margin-top:9px;background:#161a1e;animation:pulseSk 1.4s ease-in-out infinite"></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:22px 14px">
+                <sc-for list="{{ deskItems }}" as="it" hint-placeholder-count="27">
+                  <div onClick="{{ it.open }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="width:100%;aspect-ratio:1;position:relative;border:1px solid #785a28;background:#000;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:0 4px 10px rgba(0,0,0,.6);overflow:hidden" style-hover="border-color:#f0e6d2;box-shadow:0 0 0 1px #c8aa6e,0 0 20px rgba(200,170,110,.6)">
+                      {{ it.img }}
+                      <span style="{{ it.badgeStyle }}">{{ it.key }}</span>
+                    </div>
+                    <span style="font-family:'Times New Roman',serif;color:#c8aa6e;font-size:.78rem;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">{{ it.name }}</span>
+                    <span style="color:#8b9ea8;font-size:.68rem;text-align:center;line-height:1.1;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">{{ it.sub }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:70px 0">
+                  <span style="width:44px;height:44px;border:1px solid #785a28;transform:rotate(45deg);display:block"></span>
+                  <p style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.9rem;letter-spacing:2px;margin-top:12px">NINGUNA HABILIDAD COINCIDE</p>
+                  <p style="color:#8b9ea8;font-size:.82rem">Prueba a quitar algún filtro o a cambiar la búsqueda.</p>
+                  <button onClick="{{ reset }}" style="margin-top:6px;height:44px;padding:0 20px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Limpiar filtros</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TABLET ================= -->
+    <div id="4b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:1px">4b</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Tablet · 834×1112</span>
+        <span style="color:#5e6b74;font-size:.82rem">≤1024px · filtros en barra superior · 5 columnas</span>
+      </div>
+
+      <div style="width:834px;height:1112px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.18"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,6,.94),rgba(3,4,6,.97))"></div>
+
+        <div style="position:relative;height:100%;display:flex;flex-direction:column">
+          <div style="padding:22px 28px 16px;border-bottom:1px solid rgba(120,90,40,.35);display:flex;align-items:center;gap:16px">
+            <button style="width:44px;height:44px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:17px;height:17px"><path d="M15 6L9 12l6 6"></path></svg>
+            </button>
+            <div style="flex:1;min-width:0">
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.5rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">HABILIDADES</h2>
+              <p style="color:#785a28;font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;margin-top:5px">{{ meta }}</p>
+            </div>
+            <div style="position:relative;width:280px;height:44px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(11px 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%,0 11px);display:flex;align-items:center;padding:0 13px;gap:9px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2" style="width:16px;height:16px;flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+              <input value="{{ q }}" onChange="{{ onQ }}" placeholder="Habilidad o campeón…" style="flex:1;background:none;border:none;outline:none;color:#c4d3df;font-size:.9rem"/>
+            </div>
+          </div>
+
+          <div style="padding:16px 28px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid rgba(120,90,40,.25)">
+            <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+              <button onClick="{{ pickSpells }}" style="{{ tabSpellsStyleTouch }}">Campeones</button>
+              <button onClick="{{ pickSumm }}" style="{{ tabSummStyleTouch }}">Invocador</button>
+              <sc-if value="{{ isSpells }}" hint-placeholder-val="{{ true }}">
+                <span style="width:1px;height:26px;background:#23282d;margin:0 6px"></span>
+                <sc-for list="{{ keys }}" as="c" hint-placeholder-count="6">
+                  <button onClick="{{ c.pick }}" style="{{ c.chipStyle }}">{{ c.label }}</button>
+                </sc-for>
+              </sc-if>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <sc-if value="{{ isSpells }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <sc-for list="{{ costs }}" as="t" hint-placeholder-count="5">
+                    <button onClick="{{ t.pick }}" style="{{ t.chipStyle }}">{{ t.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <sc-for list="{{ ranges }}" as="p" hint-placeholder-count="5">
+                    <button onClick="{{ p.pick }}" style="{{ p.chipStyle }}">{{ p.label }}</button>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <span style="flex:1"></span>
+              <select value="{{ sort }}" onChange="{{ onSort }}" style="height:38px;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.8rem;padding:0 9px;outline:none;cursor:pointer">
+                <option value="champ">Campeón: A → Z</option>
+                <option value="az">Habilidad: A → Z</option>
+                <option value="cd-asc">Enfriamiento ↑</option>
+                <option value="cd-desc">Enfriamiento ↓</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:20px 28px 28px;display:flex;flex-direction:column;gap:20px">
+            <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ openFeatured }}" style="height:132px;display:flex;align-items:center;gap:20px;padding:0 22px;background:linear-gradient(90deg,rgba(18,60,88,.55),rgba(11,17,22,.9));border:1px solid rgba(120,90,40,.5);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);cursor:pointer">
+                {{ featImgTab }}
+                <div style="min-width:0;flex:1">
+                  <div style="display:inline-block;padding:3px 9px;border:1px solid #0ac8b9;color:#0ac8b9;font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px">Definitiva</div>
+                  <div style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:1.15rem">{{ featName }}</div>
+                  <p style="color:#8b9ea8;font-size:.82rem;margin-top:5px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">{{ featBlurb }}</p>
+                </div>
+                <div style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:1.05rem;flex:none">{{ featSub }}</div>
+              </div>
+            </sc-if>
+
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.74rem;letter-spacing:3px;text-transform:uppercase">{{ heading }}</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+              <sc-if value="{{ dirty }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ reset }}" style="height:38px;padding:0 14px;background:transparent;border:1px solid #3e4b54;color:#8b9ea8;font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Limpiar filtros</button>
+              </sc-if>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px 18px">
+              <sc-for list="{{ tabItems }}" as="it" hint-placeholder-count="15">
+                <div onClick="{{ it.open }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px">
+                  <div style="width:100%;aspect-ratio:1;position:relative;border:1px solid #785a28;background:#000;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);overflow:hidden" style-active="border-color:#f0e6d2;box-shadow:0 0 0 1px #c8aa6e,0 0 20px rgba(200,170,110,.6)">
+                    {{ it.img }}
+                    <span style="{{ it.badgeStyle }}">{{ it.key }}</span>
+                  </div>
+                  <span style="font-family:'Times New Roman',serif;color:#c8aa6e;font-size:.88rem;text-align:center;line-height:1.15">{{ it.name }}</span>
+                  <span style="color:#8b9ea8;font-size:.74rem;text-align:center">{{ it.sub }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MÓVIL ================= -->
+    <div id="4c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:26px;background:linear-gradient(180deg,#8a6a32,#6e4e20);color:#0d0b07;font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:1px">4c</span>
+        <span style="color:#f0e6d2;font-size:.95rem;font-weight:700">Móvil · 390×844</span>
+        <span style="color:#5e6b74;font-size:.82rem">≤480px · filtros plegables · 3 columnas · toques de 44px</span>
+      </div>
+
+      <div style="width:390px;height:844px;position:relative;overflow:hidden;background:#0a0a0c;border:1px solid #23282d;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:0;background-image:url('public/background.jpg');background-size:cover;background-position:center;opacity:.16"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,6,.95),rgba(3,4,6,.98))"></div>
+
+        <div style="position:relative;height:100%;display:flex;flex-direction:column">
+          <div style="padding:16px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(120,90,40,.3)">
+            <button style="width:44px;height:44px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:17px;height:17px"><path d="M15 6L9 12l6 6"></path></svg>
+            </button>
+            <div style="min-width:0">
+              <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.25rem;line-height:1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">HABILIDADES</h2>
+              <p style="color:#785a28;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;margin-top:4px">{{ metaShort }}</p>
+            </div>
+          </div>
+
+          <div style="padding:12px 16px;display:flex;gap:10px;border-bottom:1px solid rgba(120,90,40,.22)">
+            <div style="flex:1;height:44px;background:linear-gradient(90deg,#0b2233,#123c58);box-shadow:inset 0 0 0 1px #0ac8b9,inset 0 0 12px rgba(10,200,185,.28);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);display:flex;align-items:center;padding:0 12px;gap:8px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2" style="width:15px;height:15px;flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+              <input value="{{ q }}" onChange="{{ onQ }}" placeholder="Buscar…" style="flex:1;min-width:0;background:none;border:none;outline:none;color:#c4d3df;font-size:.88rem"/>
+            </div>
+            <button onClick="{{ toggleSheet }}" style="{{ sheetBtnStyle }}">Filtros</button>
+          </div>
+
+          <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:14px 16px;border-bottom:1px solid rgba(120,90,40,.3);background:rgba(12,14,17,.96);display:flex;flex-direction:column;gap:14px;animation:sheetIn .18s ease;max-height:520px;overflow-y:auto">
+              <div style="display:flex;gap:7px">
+                <button onClick="{{ pickSpells }}" style="{{ tabSpellsStyleTouch }}">Campeones</button>
+                <button onClick="{{ pickSumm }}" style="{{ tabSummStyleTouch }}">Invocador</button>
+              </div>
+              <sc-if value="{{ isSpells }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase">Tecla</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px">
+                    <sc-for list="{{ keys }}" as="c" hint-placeholder-count="6">
+                      <button onClick="{{ c.pick }}" style="{{ c.chipStyleTouch }}">{{ c.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div>
+                  <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase">Coste y alcance</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px">
+                    <sc-for list="{{ costs }}" as="t" hint-placeholder-count="5">
+                      <button onClick="{{ t.pick }}" style="{{ t.chipStyleTouch }}">{{ t.label }}</button>
+                    </sc-for>
+                    <sc-for list="{{ ranges }}" as="p" hint-placeholder-count="5">
+                      <button onClick="{{ p.pick }}" style="{{ p.chipStyleTouch }}">{{ p.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <select value="{{ sort }}" onChange="{{ onSort }}" style="width:100%;height:44px;background:#12161a;border:1px solid #3e4b54;color:#c4d3df;font-size:.85rem;padding:0 10px;outline:none">
+                <option value="champ">Campeón: A → Z</option>
+                <option value="az">Habilidad: A → Z</option>
+                <option value="cd-asc">Enfriamiento: menor a mayor</option>
+                <option value="cd-desc">Enfriamiento: mayor a menor</option>
+              </select>
+              <button onClick="{{ reset }}" style="height:44px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Limpiar filtros</button>
+            </div>
+          </sc-if>
+
+          <div style="flex:1;overflow-y:auto;padding:14px 16px 24px;display:flex;flex-direction:column;gap:16px">
+            <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ openFeatured }}" style="display:flex;align-items:center;gap:14px;padding:14px;background:linear-gradient(120deg,rgba(18,60,88,.5),rgba(11,17,22,.9));border:1px solid rgba(120,90,40,.5);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)">
+                {{ featImgMob }}
+                <div style="min-width:0">
+                  <div style="color:#0ac8b9;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Definitiva destacada</div>
+                  <div style="font-family:'Cinzel',serif;color:#f0e6d2;font-size:.95rem;margin-top:4px">{{ featName }}</div>
+                  <div style="color:#c8aa6e;font-family:'Times New Roman',serif;font-size:.85rem;margin-top:2px">{{ featSub }}</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-family:'Cinzel',serif;color:#c8aa6e;font-size:.66rem;letter-spacing:2.5px;text-transform:uppercase">{{ heading }}</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,170,110,.5),transparent)"></span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px 14px">
+              <sc-for list="{{ mobItems }}" as="it" hint-placeholder-count="9">
+                <div onClick="{{ it.open }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+                  <div style="width:100%;aspect-ratio:1;position:relative;border:1px solid #785a28;background:#000;clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px);overflow:hidden" style-active="border-color:#f0e6d2;box-shadow:0 0 0 1px #c8aa6e,0 0 18px rgba(200,170,110,.55)">
+                    {{ it.img }}
+                    <span style="{{ it.badgeStyle }}">{{ it.key }}</span>
+                  </div>
+                  <span style="font-family:'Times New Roman',serif;color:#c8aa6e;font-size:.78rem;text-align:center;line-height:1.15">{{ it.name }}</span>
+                  <span style="color:#8b9ea8;font-size:.68rem;text-align:center;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">{{ it.sub }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL DE DETALLE DE HABILIDAD ============ -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:32px;background:radial-gradient(circle at center,rgba(3,6,10,.72),rgba(2,3,5,.94));backdrop-filter:blur(3px);animation:fadeIn .2s ease">
+      <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:580px;max-height:86vh;display:flex;flex-direction:column;background:linear-gradient(180deg,#12100b 0%,#0a0a0c 100%);border:1px solid #785a28;box-shadow:0 0 0 1px #1c1710,0 30px 80px rgba(0,0,0,.85);clip-path:polygon(24px 0,calc(100% - 24px) 0,100% 24px,100% calc(100% - 24px),calc(100% - 24px) 100%,24px 100%,0 calc(100% - 24px),0 24px);animation:modalIn .3s cubic-bezier(.2,.8,.2,1)">
+        <div style="display:flex;gap:18px;padding:26px 28px 20px;border-bottom:1px solid rgba(120,90,40,.35)">
+          {{ selImg }}
+          <div style="flex:1;min-width:0">
+            <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:1.6rem;line-height:1.1;background:linear-gradient(180deg,#fffae3 0%,#eac269 48%,#8f6014 58%,#f4d37c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">{{ selName }}</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:9px">
+              <span style="padding:3px 10px;border:1px solid #0ac8b9;color:#0ac8b9;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)">{{ selKeyLabel }}</span>
+              <span style="padding:3px 10px;border:1px solid rgba(120,90,40,.7);color:#c8aa6e;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)">{{ selOwner }}</span>
+            </div>
+          </div>
+          <button onClick="{{ close }}" style="width:36px;height:36px;flex:none;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;cursor:pointer;font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)">✕</button>
+        </div>
+
+        <div style="flex:1;overflow-y:auto;padding:22px 28px 26px;display:flex;flex-direction:column;gap:22px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px 24px">
+            <sc-for list="{{ selStats }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dotted rgba(120,90,40,.35);padding-bottom:5px">
+                <span style="color:#8b9ea8;font-size:.76rem;text-transform:uppercase;letter-spacing:.5px">{{ s.label }}</span>
+                <span style="color:#f0e6d2;font-family:'Times New Roman',serif;font-size:.95rem;font-weight:700;text-align:right">{{ s.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:linear-gradient(180deg,rgba(23,75,110,.14),rgba(11,34,51,.06));border:1px solid rgba(120,90,40,.4);border-left:2px solid #0ac8b9;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);padding:15px 17px">
+            <p style="color:#b9b19d;font-size:.88rem;line-height:1.55;text-wrap:pretty">{{ selDesc }}</p>
+          </div>
+
+          <sc-if value="{{ hasOwnerBtn }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ close }}" style="height:44px;background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">{{ ownerBtnLabel }}</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:2800,&quot;height&quot;:1220},&quot;showFeatured&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const CDN = 'https://ddragon.leagueoflegends.com';
+const SLOTS = ['Q', 'W', 'E', 'R'];
+
+const KEYS = [
+  { key: 'all', label: 'Todas' }, { key: 'P', label: 'Pasiva' }, { key: 'Q', label: 'Q' },
+  { key: 'W', label: 'W' }, { key: 'E', label: 'E' }, { key: 'R', label: 'R · Definitiva' }
+];
+const COSTS = [
+  { key: 'all', label: 'Todos' }, { key: 'mana', label: 'Maná' }, { key: 'energy', label: 'Energía' },
+  { key: 'hp', label: 'Vida' }, { key: 'none', label: 'Sin coste' }, { key: 'other', label: 'Otro' }
+];
+const RANGES = [
+  { key: 'all', label: 'Cualquiera' }, { key: 'self', label: 'Propio' }, { key: 'short', label: 'Corto' },
+  { key: 'mid', label: 'Medio' }, { key: 'long', label: 'Largo' }
+];
+
+function strip(h) {
+  return (h || '').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function costKind(sp) {
+  const b = (sp.costBurn || '0');
+  if (b === '0' || /sin coste/i.test(sp.costType || '')) return 'none';
+  const t = (sp.costType || '').toLowerCase();
+  if (t.indexOf('maná') >= 0 || t.indexOf('mana') >= 0) return 'mana';
+  if (t.indexOf('energ') >= 0) return 'energy';
+  if (t.indexOf('vida') >= 0 || t.indexOf('salud') >= 0) return 'hp';
+  return 'other';
+}
+function rangeKind(sp) {
+  const r = parseFloat(sp.rangeBurn);
+  if (isNaN(r) || r <= 0) return 'self';
+  if (r <= 500) return 'short';
+  if (r <= 900) return 'mid';
+  return 'long';
+}
+function cdNum(burn) { const n = parseFloat(burn); return isNaN(n) ? -1 : n; }
+
+const CHIP_BASE = 'padding:0 12px;height:30px;display:inline-flex;align-items:center;font-size:.7rem;letter-spacing:.5px;cursor:pointer;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%);';
+const CHIP_OFF = CHIP_BASE + 'background:rgba(16,19,22,.75);border:1px solid #23282d;color:#8b9ea8;';
+const CHIP_ON = CHIP_BASE + 'background:linear-gradient(90deg,rgba(18,60,88,.9),rgba(11,34,51,.4));border:1px solid #0ac8b9;color:#f0e6d2;';
+const touch = s => s.replace('height:30px', 'height:44px');
+const TAB = 'flex:1;height:38px;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;';
+const TAB_ON = TAB + 'background:linear-gradient(180deg,#12608a,#0b2233);border:1px solid #0ac8b9;color:#7de9df;';
+const TAB_OFF = TAB + 'background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;';
+
+class Component extends DCLogic {
+  state = {
+    spells: null, summ: null, version: '', featIdx: 0, sel: null, sheetOpen: false, tab: 'spells',
+    q: '', key: 'all', cost: 'all', range: 'all', sort: 'champ'
+  };
+
+  componentDidMount() { this.load(); }
+
+  async load() {
+    try {
+      const vs = await (await fetch(CDN + '/api/versions.json')).json();
+      const v = vs[0];
+      const base = CDN + '/cdn/' + v;
+      const [full, sm] = await Promise.all([
+        fetch(base + '/data/es_ES/championFull.json').then(r => r.json()),
+        fetch(base + '/data/es_ES/summoner.json').then(r => r.json())
+      ]);
+      const spells = [];
+      Object.values(full.data).forEach(ch => {
+        const p = ch.passive;
+        spells.push({
+          id: ch.id + '_P', key: 'P', name: p.name, owner: ch.name, ownerId: ch.id,
+          icon: base + '/img/passive/' + p.image.full, desc: strip(p.description),
+          cost: 'none', range: 'self', cd: -1,
+          stats: [{ label: 'Enfriamiento', value: '—' }, { label: 'Coste', value: 'Sin coste' }, { label: 'Alcance', value: 'Propio' }, { label: 'Rangos', value: 'Pasiva' }]
+        });
+        (ch.spells || []).forEach((sp, i) => {
+          const ck = costKind(sp), rk = rangeKind(sp);
+          spells.push({
+            id: ch.id + '_' + SLOTS[i], key: SLOTS[i], name: sp.name, owner: ch.name, ownerId: ch.id,
+            icon: base + '/img/spell/' + sp.image.full, desc: strip(sp.description),
+            cost: ck, range: rk, cd: cdNum(sp.cooldownBurn),
+            stats: [
+              { label: 'Enfriamiento', value: sp.cooldownBurn ? sp.cooldownBurn.replace(/\//g, ' / ') + ' s' : '—' },
+              { label: 'Coste', value: ck === 'none' ? 'Sin coste' : sp.costBurn.replace(/\//g, ' / ') + ' ' + (sp.costType || '').toLowerCase() },
+              { label: 'Alcance', value: rk === 'self' ? 'Propio' : sp.rangeBurn.replace(/\//g, ' / ') },
+              { label: 'Rangos', value: String(sp.maxrank) }
+            ]
+          });
+        });
+      });
+      const summ = Object.values(sm.data).map(s => ({
+        id: s.id, key: 'S', name: s.name, owner: 'Hechizo de invocador', ownerId: null,
+        icon: base + '/img/spell/' + s.image.full, desc: strip(s.description),
+        cost: 'none', range: 'self', cd: cdNum(s.cooldownBurn),
+        stats: [
+          { label: 'Enfriamiento', value: s.cooldownBurn + ' s' },
+          { label: 'Nivel requerido', value: String(s.summonerLevel) },
+          { label: 'Modos', value: (s.modes || []).length + ' modos de juego' },
+          { label: 'Tipo', value: 'Invocador' }
+        ]
+      }));
+      const ults = spells.filter(x => x.key === 'R');
+      this.setState({ version: v, spells, summ, featIdx: spells.indexOf(ults[Math.floor(Math.random() * ults.length)]) });
+    } catch (e) { this.setState({ spells: [], summ: [] }); }
+  }
+
+  set(k, v) { this.setState({ [k]: v }); }
+
+  filtered() {
+    const s = this.state;
+    const src = (s.tab === 'spells' ? s.spells : s.summ) || [];
+    const q = s.q.trim().toLowerCase();
+    const list = src.filter(x => {
+      if (q && x.name.toLowerCase().indexOf(q) < 0 && x.owner.toLowerCase().indexOf(q) < 0) return false;
+      if (s.tab === 'spells') {
+        if (s.key !== 'all' && x.key !== s.key) return false;
+        if (s.cost !== 'all' && x.cost !== s.cost) return false;
+        if (s.range !== 'all' && x.range !== s.range) return false;
+      }
+      return true;
+    });
+    const L = (a, b) => a.localeCompare(b, 'es');
+    switch (s.sort) {
+      case 'champ': list.sort((a, b) => L(a.owner, b.owner) || 'PQWERS'.indexOf(a.key) - 'PQWERS'.indexOf(b.key)); break;
+      case 'az': list.sort((a, b) => L(a.name, b.name)); break;
+      case 'cd-asc': list.sort((a, b) => (a.cd < 0 ? 1e9 : a.cd) - (b.cd < 0 ? 1e9 : b.cd) || L(a.name, b.name)); break;
+      case 'cd-desc': list.sort((a, b) => b.cd - a.cd || L(a.name, b.name)); break;
+    }
+    return list;
+  }
+
+  card(x) {
+    const hi = x.key === 'R' || x.key === 'S';
+    const bc = hi ? '#f4d37c' : (x.key === 'P' ? '#0ac8b9' : '#c8aa6e');
+    return {
+      id: x.id, name: x.name, key: x.key === 'S' ? '' : x.key, sub: x.owner,
+      img: React.createElement('img', { src: x.icon, alt: x.name, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } }),
+      badgeStyle: (x.key === 'S' ? 'display:none;' : '') + 'position:absolute;left:0;bottom:0;min-width:20px;height:18px;padding:0 5px;display:flex;align-items:center;justify-content:center;background:rgba(3,4,6,.88);border-top:1px solid ' + bc + ';border-right:1px solid ' + bc + ';color:' + bc + ';font-family:Cinzel,serif;font-size:.62rem;font-weight:700;' + (x.key === 'S' ? 'display:none;' : ''),
+      open: () => this.setState({ sel: x })
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const isSpells = s.tab === 'spells';
+    const loading = s.spells === null;
+    const src = (isSpells ? s.spells : s.summ) || [];
+    const list = this.filtered();
+    const feat = (s.spells || [])[s.featIdx] || null;
+    const sel = s.sel;
+
+    const keys = KEYS.map(c => {
+      const on = s.key === c.key;
+      const count = c.key === 'all' ? (s.spells || []).length : (s.spells || []).filter(x => x.key === c.key).length;
+      return {
+        label: c.label, count, pick: () => this.set('key', c.key),
+        rowStyle: 'display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;height:32px;padding:0 11px;font-size:.78rem;cursor:pointer;text-align:left;' +
+          (on ? 'background:linear-gradient(90deg,rgba(18,60,88,.85),rgba(11,34,51,.35));border:1px solid #0ac8b9;color:#f0e6d2;' : 'background:rgba(16,19,22,.6);border:1px solid #23282d;color:#8b9ea8;'),
+        numStyle: 'font-size:.7rem;' + (on ? 'color:#7de9df' : 'color:#5e6b74'),
+        chipStyle: on ? CHIP_ON : CHIP_OFF, chipStyleTouch: touch(on ? CHIP_ON : CHIP_OFF)
+      };
+    });
+    const mk = (arr, k) => arr.map(o => {
+      const on = s[k] === o.key;
+      return { label: o.label, pick: () => this.set(k, o.key), chipStyle: on ? CHIP_ON : CHIP_OFF, chipStyleTouch: touch(on ? CHIP_ON : CHIP_OFF) };
+    });
+
+    const keyName = { P: 'Pasiva', Q: 'Tecla Q', W: 'Tecla W', E: 'Tecla E', R: 'Definitiva · R', S: 'Invocador' };
+    const keyLabel = (KEYS.find(k => k.key === s.key) || KEYS[0]).label;
+    const img = (x, px, glow) => x ? React.createElement('img', { src: x.icon, alt: '', style: { width: px, height: px, flex: 'none', border: '1px solid #c8aa6e', background: '#000', boxShadow: glow } }) : null;
+    const dirty = !!(s.q || (isSpells && (s.key !== 'all' || s.cost !== 'all' || s.range !== 'all')));
+
+    return {
+      loading, isSpells, showFeatured: this.props.showFeatured ?? true,
+      skeleton: Array.from({ length: 27 }).map((_, i) => ({ i })),
+      q: s.q, sort: s.sort, sheetOpen: s.sheetOpen,
+      onQ: e => this.set('q', e.target.value), onSort: e => this.set('sort', e.target.value),
+      toggleSheet: () => this.set('sheetOpen', !s.sheetOpen),
+      pickSpells: () => this.set('tab', 'spells'), pickSumm: () => this.set('tab', 'summ'),
+      tabSpellsStyle: isSpells ? TAB_ON : TAB_OFF, tabSummStyle: isSpells ? TAB_OFF : TAB_ON,
+      tabSpellsStyleTouch: (isSpells ? TAB_ON : TAB_OFF).replace('height:38px', 'height:44px'),
+      tabSummStyleTouch: (isSpells ? TAB_OFF : TAB_ON).replace('height:38px', 'height:44px'),
+      meta: loading ? 'Cargando catálogo…' : list.length + ' de ' + src.length + ' · parche ' + s.version,
+      metaShort: loading ? 'Cargando…' : list.length + ' de ' + src.length,
+      heading: (isSpells ? (s.key === 'all' ? 'Todas las habilidades' : keyLabel) : 'Hechizos de invocador') + ' · ' + list.length,
+      dirty, reset: () => this.setState({ q: '', key: 'all', cost: 'all', range: 'all' }),
+      empty: !loading && list.length === 0,
+      keys, costs: mk(COSTS, 'cost'), ranges: mk(RANGES, 'range'),
+      deskItems: list.map(x => this.card(x)),
+      tabItems: list.slice(0, 45).map(x => this.card(x)),
+      mobItems: list.slice(0, 36).map(x => this.card(x)),
+      sheetBtnStyle: 'width:96px;height:44px;flex:none;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;' +
+        (s.sheetOpen ? 'background:linear-gradient(180deg,#12608a,#0b2233);border:1px solid #0ac8b9;color:#7de9df;' : 'background:linear-gradient(180deg,#3f4d58,#1e262c);border:1px solid #101518;color:#c8aa6e;'),
+      featImgDesk: img(feat, 64, '0 0 16px rgba(200,170,110,.35)'),
+      featImgTab: img(feat, 84, '0 0 20px rgba(200,170,110,.35)'),
+      featImgMob: img(feat, 60, 'none'),
+      featName: feat ? feat.name : '', featSub: feat ? feat.owner : '',
+      featBlurb: feat ? feat.desc.slice(0, 140) : '',
+      openFeatured: () => feat && this.setState({ sel: feat }),
+      modalOpen: !!sel, close: () => this.setState({ sel: null }), stop: e => e.stopPropagation(),
+      selImg: sel ? React.createElement('img', { src: sel.icon, alt: '', style: { width: 78, height: 78, flex: 'none', border: '1px solid #c8aa6e', background: '#000', boxShadow: '0 0 20px rgba(200,170,110,.3)' } }) : null,
+      selName: sel ? sel.name : '', selOwner: sel ? sel.owner : '',
+      selKeyLabel: sel ? keyName[sel.key] : '', selStats: sel ? sel.stats : [],
+      selDesc: sel ? sel.desc : '',
+      hasOwnerBtn: !!(sel && sel.ownerId), ownerBtnLabel: sel ? 'Ver campeón · ' + sel.owner : ''
+    };
+  }
+}
+
+</script>
+</body>
+</html>

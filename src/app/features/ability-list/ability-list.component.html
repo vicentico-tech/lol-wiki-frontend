@@ -1,0 +1,232 @@
+<div class="ability-list-page">
+  <div class="bg-image"></div>
+  <div class="bg-veil"></div>
+
+  @if (isDesktop()) {
+    <div class="desktop-layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <button class="back-link" (click)="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6L9 12l6 6"></path></svg>
+            Volver al inicio
+          </button>
+          <h1 class="sidebar-title">HABILIDADES</h1>
+          <p class="sidebar-subtitle">{{ filteredItems().length }} de {{ source().length }} · parche {{ version() || '—' }}</p>
+        </div>
+
+        <div class="sidebar-body">
+          <div class="tab-row">
+            <button class="tab" [class.tab-active]="isSpells()" (click)="setTab('spells')">Campeones</button>
+            <button class="tab" [class.tab-active]="!isSpells()" (click)="setTab('summ')">Invocador</button>
+          </div>
+
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar habilidad o campeón...">
+          </div>
+
+          @if (isSpells()) {
+            <div class="filter-section">
+              <div class="filter-heading"><span>Tecla</span><span class="line"></span></div>
+              @for (opt of keyOptions(); track opt.key) {
+                <button class="key-row" [class.key-row-active]="filters().key === opt.key" (click)="setFilter('key', opt.key)">
+                  <span>{{ opt.label }}</span>
+                  <span class="key-count">{{ opt.count }}</span>
+                </button>
+              }
+            </div>
+
+            <div class="filter-section">
+              <div class="filter-heading"><span>Coste</span><span class="line"></span></div>
+              <div class="chip-row">
+                @for (opt of costOptions; track opt.key) {
+                  <button class="chip" [class.chip-active]="filters().cost === opt.key" (click)="setFilter('cost', opt.key)">{{ opt.label }}</button>
+                }
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <div class="filter-heading"><span>Alcance</span><span class="line"></span></div>
+              <div class="chip-row">
+                @for (opt of rangeOptions; track opt.key) {
+                  <button class="chip" [class.chip-active]="filters().range === opt.key" (click)="setFilter('range', opt.key)">{{ opt.label }}</button>
+                }
+              </div>
+            </div>
+          }
+
+          <div class="filter-section">
+            <div class="filter-heading"><span>Orden</span><span class="line"></span></div>
+            <select class="select-dark" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
+              <option value="champ">Campeón A → Z</option>
+              <option value="az">Habilidad A → Z</option>
+              <option value="cd-asc">Enfriamiento: menor a mayor</option>
+              <option value="cd-desc">Enfriamiento: mayor a menor</option>
+            </select>
+          </div>
+
+          @if (featured(); as f) {
+            <div class="filter-section">
+              <div class="filter-heading"><span>Destacada</span><span class="line"></span></div>
+              <div class="featured-card" (click)="openFeatured()">
+                @if (version()) {
+                  <img [src]="f.icon" [alt]="f.name" width="64" height="64">
+                }
+                <div class="featured-info">
+                  <span class="featured-badge">Definitiva</span>
+                  <h4>{{ f.name }}</h4>
+                  <p>{{ f.owner }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content-header">
+          <span class="content-heading">{{ headingText() }}</span>
+          <span class="line"></span>
+          @if (filtersDirty()) {
+            <button class="reset-btn" (click)="resetFilters()">Limpiar filtros</button>
+          }
+        </div>
+        <div class="content-scroll">
+          <ng-container *ngTemplateOutlet="abilityGrid"></ng-container>
+        </div>
+      </main>
+    </div>
+  } @else {
+    <div class="topbar-layout">
+      <header class="topbar">
+        <button class="icon-btn" (click)="goHome()" aria-label="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6L9 12l6 6"></path></svg>
+        </button>
+        <div class="topbar-title">
+          <h1>HABILIDADES</h1>
+          <p>{{ filteredItems().length }} de {{ source().length }}</p>
+        </div>
+      </header>
+
+      <div class="topbar-controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0ac8b9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" [ngModel]="filters().q" (ngModelChange)="setFilter('q', $event)" placeholder="Buscar...">
+        </div>
+        <button class="filters-toggle" [class.filters-toggle-active]="filtersOpen()" (click)="toggleFilters()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="17" x2="14" y2="17"></line></svg>
+          <span>Filtros</span>
+        </button>
+      </div>
+
+      <div class="filters-sheet" [class.filters-sheet-open]="filtersOpen()">
+        <div class="filter-section">
+          <span class="filter-heading-sm">Tipo</span>
+          <div class="tab-row tab-row-touch">
+            <button class="tab" [class.tab-active]="isSpells()" (click)="setTab('spells')">Campeones</button>
+            <button class="tab" [class.tab-active]="!isSpells()" (click)="setTab('summ')">Invocador</button>
+          </div>
+        </div>
+
+        @if (isSpells()) {
+          <div class="filter-section">
+            <span class="filter-heading-sm">Tecla</span>
+            <div class="chip-row">
+              @for (opt of keyOptions(); track opt.key) {
+                <button class="chip chip-touch" [class.chip-active]="filters().key === opt.key" (click)="setFilter('key', opt.key)">{{ opt.label }}</button>
+              }
+            </div>
+          </div>
+          <div class="filter-section">
+            <span class="filter-heading-sm">Coste y alcance</span>
+            <div class="chip-row">
+              @for (opt of costOptions; track opt.key) {
+                <button class="chip chip-touch" [class.chip-active]="filters().cost === opt.key" (click)="setFilter('cost', opt.key)">{{ opt.label }}</button>
+              }
+              @for (opt of rangeOptions; track opt.key) {
+                <button class="chip chip-touch" [class.chip-active]="filters().range === opt.key" (click)="setFilter('range', opt.key)">{{ opt.label }}</button>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="filter-section sheet-actions">
+          <select class="select-dark select-touch" [ngModel]="filters().sort" (ngModelChange)="setFilter('sort', $event)">
+            <option value="champ">Campeón A → Z</option>
+            <option value="az">Habilidad A → Z</option>
+            <option value="cd-asc">Enfriamiento: menor a mayor</option>
+            <option value="cd-desc">Enfriamiento: mayor a menor</option>
+          </select>
+          <button class="reset-btn reset-btn-block" (click)="resetFilters()">Limpiar filtros</button>
+        </div>
+      </div>
+
+      <div class="topbar-scroll">
+        @if (featured(); as f) {
+          <div class="featured-banner" (click)="openFeatured()">
+            @if (version()) {
+              <img [src]="f.icon" [alt]="f.name" width="84" height="84">
+            }
+            <div class="featured-banner-info">
+              <span class="featured-badge">Definitiva</span>
+              <h3>{{ f.name }}</h3>
+              <span class="featured-owner">{{ f.owner }}</span>
+              <p>{{ f.desc }}</p>
+            </div>
+          </div>
+        }
+
+        <div class="grid-heading">
+          <span class="content-heading">{{ headingText() }}</span>
+          <span class="line"></span>
+          @if (filtersDirty()) {
+            <button class="reset-btn" (click)="resetFilters()">Limpiar filtros</button>
+          }
+        </div>
+
+        <ng-container *ngTemplateOutlet="abilityGrid"></ng-container>
+      </div>
+    </div>
+  }
+
+  <ng-template #abilityGrid>
+    @if (loading()) {
+      <div class="skeleton-grid">
+        @for (s of skeletonItems; track $index) {
+          <div class="skeleton-cell">
+            <div class="skeleton-icon"></div>
+            <div class="skeleton-name"></div>
+          </div>
+        }
+      </div>
+    } @else if (filteredItems().length) {
+      <div class="ability-grid">
+        @for (ability of filteredItems(); track ability.id) {
+          <div class="ability-card" (click)="openAbility(ability)">
+            <div class="ability-icon">
+              @if (version()) {
+                <img [src]="ability.icon" [alt]="ability.name" width="64" height="64" loading="lazy">
+              }
+              @if (ability.key !== 'S') {
+                <span class="key-badge" [attr.data-key]="ability.key">{{ ability.key }}</span>
+              }
+            </div>
+            <span class="ability-name">{{ ability.name }}</span>
+            <span class="ability-owner">{{ ability.owner }}</span>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="empty-icon"></div>
+        <p class="empty-title">NINGUNA HABILIDAD COINCIDE</p>
+        <p class="empty-desc">Prueba a quitar algún filtro o revisa el nombre.</p>
+        <button class="reset-btn reset-btn-cta" (click)="resetFilters()">Limpiar filtros</button>
+      </div>
+    }
+  </ng-template>
+
+  @if (selected(); as ability) {
+    <app-ability-detail [ability]="ability" (close)="closeAbility()" />
+  }
+</div>

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RiotDataService } from '../../core/services/riot-data.service';
 import { AnalyticsService } from '../../core/services/analytics.service';
 import { ChampionDetailComponent } from '../champion-detail/champion-detail.component';
@@ -115,11 +115,19 @@ export class ChampionListComponent implements OnInit {
   constructor(
     private riotService: RiotDataService,
     private analytics: AnalyticsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.isDesktop.set(window.innerWidth > 1024);
+
+    // Enlace desde el detalle de una habilidad: /campeones?open={championId}
+    const openId = this.route.snapshot.queryParamMap.get('open');
+    if (openId) {
+      this.selectedId.set(openId);
+      this.router.navigate([], { queryParams: { open: null }, queryParamsHandling: 'merge', replaceUrl: true });
+    }
 
     this.riotService.getChampions().subscribe({
       next: champions => {
