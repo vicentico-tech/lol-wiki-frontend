@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "src/app/shared/components/search-bar/search-bar.component.html"
+        ],
+        "createdAt": "2026-11-04T15:31:22.769Z",
+        "reason": "model: false positive; img uses Angular [src] binding (result.icon), live DOM had no broken images"
+      }
+    ]
+  }
+}

@@ -40,3 +40,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Impeccable design tooling (local only; PRODUCT.md, DESIGN.md and .impeccable/ docs are shared)
+.claude/settings.local.json
+.claude/skills/
+.claude/agents/
+.github/skills/
+.github/agents/
+.github/hooks/
+.impeccable/hook.cache.json
+.impeccable/live/

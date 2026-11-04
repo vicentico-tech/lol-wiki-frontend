@@ -1,12 +1,12 @@
 <div class="search-container">
   <!-- Top Center R Badge -->
-  <div class="badge-r">
+  <div class="badge-r" aria-hidden="true">
     <div class="badge-inner">R</div>
   </div>
 
   <div class="search-frame">
     <!-- Overlay de grietas decorativas -->
-    <div class="cracks-overlay">
+    <div class="cracks-overlay" aria-hidden="true">
       <svg viewBox="0 0 800 60" preserveAspectRatio="none">
         <!-- Grietas sutiles dibujadas con SVG -->
         <path d="M 50 5 L 60 20 L 55 35" stroke="rgba(0,0,0,0.5)" stroke-width="1.5" fill="none" />
@@ -19,28 +19,50 @@
 
     <div class="search-inner">
       <!-- Left Rune -->
-      <div class="rune rune-left">
+      <div class="rune rune-left" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M15 6L9 12l6 6"></path>
           <circle cx="9" cy="12" r="1" fill="currentColor"></circle>
         </svg>
       </div>
 
-      <input type="text" 
-             placeholder="Busca campeones, objetos o historia..." 
+      <input #searchInput
+             type="text"
+             role="combobox"
+             aria-autocomplete="list"
+             aria-haspopup="listbox"
+             [attr.aria-expanded]="panelOpen"
+             [attr.aria-controls]="results.length ? 'search-listbox' : null"
+             [attr.aria-activedescendant]="activeId"
+             aria-label="Buscar campeón u objeto"
+             placeholder="Buscar campeón u objeto"
+             autocomplete="off"
+             autocapitalize="off"
+             spellcheck="false"
+             enterkeyhint="search"
              (input)="onSearchInput($event)"
+             (keydown)="onKeydown($event)"
              (focus)="onFocus()"
              (blur)="onBlur()" />
 
-      <button class="search-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      @if (term) {
+        <button class="clear-btn" type="button" aria-label="Borrar búsqueda" (click)="clear()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+      }
+
+      <button class="search-btn" type="button" aria-label="Buscar" (click)="onSearchButton()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="7"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </button>
 
       <!-- Right Rune -->
-      <div class="rune rune-right">
+      <div class="rune rune-right" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 6l6 6-6 6"></path>
           <circle cx="15" cy="12" r="1" fill="currentColor"></circle>
@@ -49,15 +71,37 @@
     </div>
   </div>
 
-  <!-- Resultados del buscador -->
-  <div class="search-dropdown" *ngIf="showDropdown && searchResults.length > 0">
-    <div class="dropdown-item" *ngFor="let result of searchResults" (click)="onResultClick(result)">
-      <img [src]="result.icon" [alt]="result.name" class="result-icon">
-      <div class="result-info">
-        <span class="result-name">{{ result.name }}</span>
-        <span class="result-subtitle">{{ result.subtitle | titlecase }}</span>
-      </div>
-      <span class="result-type">{{ result.type === 'champion' ? 'Campeón' : 'Objeto' }}</span>
+  <!-- Anuncia a lectores de pantalla lo que se ve en el panel -->
+  <div class="sr-only" role="status" aria-live="polite">{{ liveMessage }}</div>
+
+  <!-- Resultados del buscador. mousedown no quita el foco al input, así el clic llega a la opción. -->
+  @if (panelOpen) {
+    <div class="search-dropdown" (mousedown)="$event.preventDefault()">
+      @if (results.length) {
+        <div id="search-listbox" role="listbox" aria-label="Resultados de búsqueda">
+          @for (result of results; track result.type + result.id; let i = $index) {
+            <div class="dropdown-item"
+                 role="option"
+                 [id]="optionId(i)"
+                 [class.active]="i === activeIndex"
+                 [attr.aria-selected]="i === activeIndex"
+                 (click)="onResultClick(result)"
+                 (mousemove)="activeIndex = i">
+              <img [src]="result.icon" alt="" class="result-icon" (error)="onIconError($event)">
+              <div class="result-info">
+                <span class="result-name">{{ result.name }}</span>
+                <span class="result-subtitle">{{ result.subtitle }}</span>
+              </div>
+              <span class="result-type">{{ result.type === 'champion' ? 'Campeón' : 'Objeto' }}</span>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="search-msg">{{ message }}</p>
+        @if (dataStatus === 'error') {
+          <button type="button" class="retry-btn" (click)="loadData()">Reintentar</button>
+        }
+      }
     </div>
-  </div>
+  }
 </div>

@@ -1,6 +1,14 @@
-<button class="nav-btn" (click)="onClick()">
+<button class="nav-btn"
+        [class.nav-btn--soon]="!route"
+        [attr.aria-disabled]="route ? null : 'true'"
+        (click)="onClick()">
   <span class="icon-container">
     <ng-content select="[icon]"></ng-content>
   </span>
-  <span class="text">[{{text}}]</span>
+  <span class="label">
+    <span class="text">{{text}}</span>
+    @if (!route) {
+      <span class="soon-tag">Próximamente</span>
+    }
+  </span>
 </button>

@@ -3,10 +3,11 @@
   border: none;
   border-radius: 4px;
   color: #e5cd8d;
-  font-family: 'Times New Roman', serif;
-  font-weight: bold;
-  font-size: 1.15rem;
-  padding: 0.5rem 1.2rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.4rem 1.1rem;
+  min-height: 50px;
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -22,18 +23,69 @@
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
   letter-spacing: 1px;
 
-  &:hover {
-    filter: brightness(1.15);
-    transform: translateY(-2px);
+  /* Lift only where a pointer can hover; touch gets the :active press instead */
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+    }
   }
 
   &:active {
+    filter: brightness(1.15);
     transform: translateY(1px);
     box-shadow: 
       inset 0 2px 5px rgba(0, 0, 0, 0.8),
       inset 0 -1px 2px rgba(255, 255, 255, 0.1),
       0 0 0 2px #101518,
       0 2px 5px rgba(0, 0, 0, 0.8);
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.15;
+  }
+
+  .soon-tag {
+    font-family: var(--font-title);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8b9ea8;
+    text-shadow: none;
+  }
+
+  /* Planned section: reads as not-yet-available, not as a broken link */
+  &.nav-btn--soon {
+    cursor: not-allowed;
+    color: #b9b19d;
+
+    .icon-container {
+      color: #5e6b74;
+    }
+
+    &:hover {
+      filter: none;
+      transform: none;
+    }
+
+    &:active {
+      filter: none;
+      transform: none;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.8),
+        0 0 0 2px #101518,
+        0 5px 15px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #0ac8b9;
+    outline-offset: 3px;
   }
 
   .icon-container {
@@ -58,8 +110,9 @@
    ================================ */
 @media (max-width: 768px) {
   .nav-btn {
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    gap: 0.6rem;
     width: 100%;
     justify-content: center;
   }
@@ -67,7 +120,7 @@
 
 @media (max-width: 480px) {
   .nav-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.95rem;
+    padding: 0.4rem 0.7rem;
+    letter-spacing: 0.5px;
   }
 }

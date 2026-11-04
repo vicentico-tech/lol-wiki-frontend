@@ -28,4 +28,13 @@
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
+
+  /* Phones: give the content the width; short landscape: give it the height */
+  @media (max-width: 480px) {
+    padding-inline: 1rem;
+  }
+
+  @media (max-height: 500px) {
+    padding-block: 1.5rem;
+  }
 }

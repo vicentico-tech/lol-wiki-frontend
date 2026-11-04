@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T00:00:00.000Z",
+  "title": "Design System: LoL Wiki",
+  "extensions": {
+    "colorMeta": {
+      "gold-base": { "role": "primary", "displayName": "Antique Gold", "canonical": "#c8aa6e", "tonalRamp": ["#2b2210", "#4a3a1b", "#785a28", "#9c7d42", "#c8aa6e", "#dcc48f", "#f0e6d2", "#faf6ec"] },
+      "gold-bright": { "role": "primary", "displayName": "Bright Gold", "canonical": "#f4d37c", "tonalRamp": ["#3a2c0a", "#6b5114", "#9a7a22", "#c7a23c", "#f4d37c", "#f8e1a1", "#fbedc4", "#fef8e6"] },
+      "hextech-cyan": { "role": "secondary", "displayName": "Hextech Cyan", "canonical": "#0ac8b9", "tonalRamp": ["#04302d", "#075a55", "#08837c", "#0aa89e", "#0ac8b9", "#4fdacf", "#7de9df", "#c4f5f1"] },
+      "rune-blue": { "role": "secondary", "displayName": "Rune Blue", "canonical": "#00c8ff", "tonalRamp": ["#032b3a", "#064c66", "#09729a", "#0a98c9", "#00c8ff", "#52d9ff", "#8fe7ff", "#d1f6ff"] },
+      "void-black": { "role": "neutral", "displayName": "Void Black", "canonical": "#0a0a0c", "tonalRamp": ["#0a0a0c", "#101518", "#1e262c", "#23282d", "#3f4d58", "#5e6b74", "#8b9ea8", "#c4d3df"] },
+      "steel-mid": { "role": "neutral", "displayName": "Steel Plate", "canonical": "#23282d", "tonalRamp": ["#101518", "#161a1e", "#1e262c", "#23282d", "#3f4d58", "#505c66", "#5e6b74", "#8b9ea8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Hero Display", "purpose": "Home hero title with metallic gold fill." },
+      "headline": { "displayName": "Cinzel Headline", "purpose": "Page and section titles on list pages." },
+      "title": { "displayName": "Title", "purpose": "Nav buttons and search result names." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and data in Roboto." },
+      "label": { "displayName": "Filter Label", "purpose": "Wide-tracked uppercase filter group headings." }
+    },
+    "shadows": [
+      { "name": "plate", "value": "0 4px 10px rgba(0, 0, 0, 0.6)", "purpose": "Resting icon and card plates." },
+      { "name": "gold-glow", "value": "0 0 0 1px #c8aa6e, 0 0 20px rgba(200, 170, 110, 0.6)", "purpose": "Hover and press state on cards." },
+      { "name": "cyan-inset-glow", "value": "inset 0 0 0 1px #0ac8b9, inset 0 0 12px rgba(10, 200, 185, 0.28)", "purpose": "Selected chips and active filters." },
+      { "name": "hero-bevel", "value": "inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -2px 5px rgba(0,0,0,0.8), 0 0 0 2px #101518, 0 5px 15px rgba(0,0,0,0.8)", "purpose": "Home nav buttons only." }
+    ],
+    "motion": [
+      { "name": "hover-fast", "value": "filter 0.2s ease, transform 0.1s ease", "purpose": "Nav button hover lift and brighten." },
+      { "name": "sheet-in", "value": "0.18s ease (opacity 0 to 1, translateY -8px to 0)", "purpose": "List sheet entrance." },
+      { "name": "skeleton-pulse", "value": "1.4s ease-in-out infinite (opacity 0.35 to 0.7)", "purpose": "Loading placeholders." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "1024px" },
+      { "name": "mobile", "value": "768px" },
+      { "name": "small", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Nav Button",
+      "kind": "button",
+      "refersTo": "nav-button",
+      "description": "Steel plate with gold label and icon; lifts on hover, presses on click.",
+      "html": "<button class=\"ds-nav-btn\"><svg viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" fill=\"currentColor\" style=\"color:#cca45c\"><path d=\"M4 4v16h16V4H4zm14 14H6V6h12v12zm-3-3H9V9h6v6z\"/></svg>OBJETOS</button>",
+      "css": ".ds-nav-btn { background: linear-gradient(180deg, #3f4d58 0%, #29343d 50%, #1e262c 100%); border: none; border-radius: 4px; color: #e5cd8d; font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.15rem; padding: 0.5rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; cursor: pointer; letter-spacing: 1px; text-shadow: 0 2px 2px rgba(0,0,0,0.9); transition: filter 0.2s ease, transform 0.1s ease; box-shadow: inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -2px 5px rgba(0,0,0,0.8), 0 0 0 2px #101518, 0 5px 15px rgba(0,0,0,0.8); } .ds-nav-btn:hover { filter: brightness(1.15); transform: translateY(-2px); } .ds-nav-btn:active { transform: translateY(1px); box-shadow: inset 0 2px 5px rgba(0,0,0,0.8), 0 0 0 2px #101518, 0 2px 5px rgba(0,0,0,0.8); } .ds-nav-btn:focus-visible { outline: 2px solid #0ac8b9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Search Bar",
+      "kind": "input",
+      "refersTo": "search-inner",
+      "description": "Hexagonal steel frame around a deep-blue well with rune-blue glow.",
+      "html": "<div class=\"ds-search-frame\"><div class=\"ds-search-inner\"><input class=\"ds-search-input\" placeholder=\"Buscar campeón u objeto\"/></div></div>",
+      "css": ".ds-search-frame { background: linear-gradient(180deg, #505c66 0%, #23282d 50%, #15181a 100%); padding: 6px; clip-path: polygon(25px 0, calc(100% - 25px) 0, 100% 50%, calc(100% - 25px) 100%, 25px 100%, 0 50%); max-width: 520px; } .ds-search-inner { display: flex; align-items: center; height: 60px; padding: 0 28px; background: linear-gradient(90deg, #0b2233 0%, #174b6e 50%, #0b2233 100%); box-shadow: inset 0 0 0 2px #00c8ff, inset 0 0 15px rgba(0,200,255,0.5); clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 20px 100%, 0 50%); } .ds-search-input { flex: 1; background: transparent; border: none; outline: none; color: #c4d3df; font-size: 1.25rem; font-family: 'Times New Roman', serif; text-shadow: 0 2px 4px rgba(0,0,0,0.8); } .ds-search-input::placeholder { color: #8b9ea8; } .ds-search-input:focus-visible { color: #fff; }"
+    },
+    {
+      "name": "Search Button",
+      "kind": "button",
+      "refersTo": "search-button",
+      "description": "Gold hexagonal action button closing the search bar.",
+      "html": "<button class=\"ds-search-btn\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"#2b1f0c\" stroke-width=\"3\"><circle cx=\"10\" cy=\"10\" r=\"6\"/><path d=\"M15 15l6 6\"/></svg></button>",
+      "css": ".ds-search-btn { background: linear-gradient(180deg, #8a6a32 0%, #c19c50 50%, #6e4e20 100%); border: none; width: 70px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 10px rgba(0,0,0,0.5); clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); transition: filter 0.2s; } .ds-search-btn:hover { filter: brightness(1.2); } .ds-search-btn:focus-visible { outline: 2px solid #0ac8b9; outline-offset: 2px; }"
+    },
+    {
+      "name": "Featured Box",
+      "kind": "card",
+      "refersTo": "featured-box",
+      "description": "Bronze plaque with gold border and corner brackets.",
+      "html": "<div class=\"ds-featured\"><span class=\"ds-featured-label\">DESTACADO:</span>Biografía Completa de Aatrox</div>",
+      "css": ".ds-featured { position: relative; width: fit-content; background: linear-gradient(180deg, #6c4e1f 0%, #3a2608 100%); border: 2px solid #a37c35; border-radius: 2px; padding: 1rem 2rem; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.2rem; letter-spacing: 1px; color: #f7e6b5; text-shadow: 0 2px 2px rgba(0,0,0,0.9); box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 0 2px #151005, 0 5px 15px rgba(0,0,0,0.8); } .ds-featured::before, .ds-featured::after { content: ''; position: absolute; width: 20px; height: 20px; border: 2px solid #e1be71; pointer-events: none; } .ds-featured::before { top: -4px; left: -4px; border-right: none; border-bottom: none; } .ds-featured::after { bottom: -4px; right: -4px; border-left: none; border-top: none; } .ds-featured-label { display: block; color: #e5cd8d; font-weight: bold; margin-bottom: 0.3rem; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "nav-button",
+      "description": "Parallelogram steel chip; selected state switches to a cyan-lit blue well.",
+      "html": "<div style=\"display:flex;gap:8px\"><button class=\"ds-chip\">TIRADOR</button><button class=\"ds-chip ds-chip-on\">MAGO</button></div>",
+      "css": ".ds-chip { background: linear-gradient(180deg, #3f4d58, #1e262c); border: none; color: #8b9ea8; font-family: Cinzel, serif; font-size: 0.7rem; letter-spacing: 1.5px; padding: 8px 18px; cursor: pointer; clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%); transition: filter 0.2s; } .ds-chip:hover { filter: brightness(1.15); } .ds-chip-on { background: linear-gradient(180deg, #123c58, #0b2233); color: #7de9df; box-shadow: inset 0 0 10px rgba(10,200,185,0.35); } .ds-chip:focus-visible { outline: 2px solid #0ac8b9; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ability Card",
+      "kind": "card",
+      "refersTo": "dropdown-panel",
+      "description": "Square icon plate with cut corners, key badge, and gold name.",
+      "html": "<div class=\"ds-ability\"><div class=\"ds-ability-icon\"><span class=\"ds-key\">Q</span></div><div class=\"ds-ability-name\">Hoja Infernal</div><div class=\"ds-ability-owner\">Aatrox</div></div>",
+      "css": ".ds-ability { width: 88px; display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer; } .ds-ability-icon { position: relative; width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #1e262c, #000); border: 1px solid #785a28; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); box-shadow: 0 4px 10px rgba(0,0,0,0.6); } .ds-ability:hover .ds-ability-icon { border-color: #f0e6d2; box-shadow: 0 0 0 1px #c8aa6e, 0 0 20px rgba(200,170,110,0.6); } .ds-key { position: absolute; left: 0; bottom: 0; min-width: 20px; height: 18px; padding: 0 5px; display: flex; align-items: center; justify-content: center; background: rgba(3,4,6,0.88); border-top: 1px solid #c8aa6e; border-right: 1px solid #c8aa6e; color: #c8aa6e; font-family: Cinzel, serif; font-size: 0.62rem; font-weight: 700; } .ds-ability-name { color: #c8aa6e; font-family: 'Times New Roman', serif; font-size: 0.78rem; line-height: 1.15; text-align: center; } .ds-ability-owner { color: #8b9ea8; font-size: 0.7rem; font-family: Roboto, sans-serif; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Hextech Archive",
+    "overview": "A wiki shelved inside the game client. Everything sits on a near-black vault (a dimmed key-art backdrop under a heavy veil). Gilded type and hairlines carry structure, and hextech cyan is the only light source. The system borrows League's own interface language (chamfered plates, metallic gold lettering, glowing blue readouts) so a player who just left a match feels they never left the client.\n\nDensity is moderate and lookup-driven: dark plates hold dense information, gold sets hierarchy, and cyan marks what is active or selectable. Chrome is flat plates with glow as an accent; heavy bevels are reserved for the hero controls on the home page.\n\nIt rejects the generic dark-mode dashboard: no neutral gray cards, no flat SaaS styling. Every surface should read as part of the game client.",
+    "keyCharacteristics": [
+      "Dark vault base with a dimmed backdrop image under a directional black veil.",
+      "Gold as structure and type, cyan as state and light.",
+      "Chamfered and hexagonal silhouettes cut with clip-path, never plain rounded rectangles.",
+      "Metallic gradient lettering for hero headings only.",
+      "Flat plates at rest; glow appears on hover, focus and selection."
+    ],
+    "rules": [
+      { "name": "The Cyan-Means-Active Rule", "body": "Cyan appears only on something selected, focused, passive or searchable. It is never decorative.", "section": "colors" },
+      { "name": "The Two-Metals Rule", "body": "Gold builds the structure, steel builds the frames. Do not introduce a third accent hue.", "section": "colors" },
+      { "name": "The Metal-Only-On-Hero Rule", "body": "The metallic gradient fill is for a handful of hero headings. Body copy, list text and labels stay solid color.", "section": "typography" },
+      { "name": "The Glow-Is-State Rule", "body": "Outward glow means interaction (hover, focus, selected). Do not add resting glows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Antique Gold (#c8aa6e) for structure and Hextech Cyan (#0ac8b9) only for active or selected state.",
+      "Do cut silhouettes with clip-path chamfers or hexagons; keep any border-radius at 4px or less.",
+      "Do use the --font-title (Cinzel) token for headings and uppercase labels, and --font-body (Roboto) for data.",
+      "Do keep resting surfaces flat and let glow signal interaction.",
+      "Do keep the backdrop image dimmed (about 22% opacity) under the veil so text stays readable."
+    ],
+    "donts": [
+      "Don't drift toward a generic dark-mode dashboard: no neutral gray cards, flat SaaS buttons or system-style rounded panels.",
+      "Don't introduce a third accent hue beyond gold and cyan.",
+      "Don't apply the metallic gradient fill to body text, list rows or labels.",
+      "Don't hard-code 'Times New Roman' in new components; use the font tokens.",
+      "Don't add resting glows or heavy bevels outside the home hero controls."
+    ]
+  }
+}

@@ -1,91 +1,98 @@
+/* Home: one task path. Headline -> search (lead) -> sections -> featured pick. */
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .home-container {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The search is the lead: let its host fill the column up to the frame's own max */
+app-search-bar {
+  display: block;
+  width: 100%;
+  max-width: 850px;
 }
 
 .header {
-  margin-top: 1rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 450px;
-  
+  padding: 0 1rem;
+  /* Clears the "R" badge that sits on the search frame's top rim */
+  margin-bottom: 2.5rem;
+  text-align: center;
+
   .lol-text {
-    font-family: 'Times New Roman', serif;
+    font-family: var(--font-title);
     /* Bright metallic gradient */
     background: linear-gradient(180deg, #fffae3 0%, #eac269 45%, #8f6014 55%, #f4d37c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    
+
     /* Using drop-shadow to create a solid dark outline and a soft outer shadow */
     filter: drop-shadow(0 1px 1px #050402)
             drop-shadow(0 2px 1px #050402)
             drop-shadow(0 4px 10px rgba(0,0,0,0.9));
-            
+
     margin: 0;
     line-height: 1.15;
-    text-align: left;
     font-weight: bold;
   }
 
-  .logo-title {
-    font-size: 2.8rem;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-    position: relative;
-    
-    .of-text {
-      font-size: 1.2rem;
-      vertical-align: middle;
-      display: inline-block;
-      margin: 0 -0.5rem;
-    }
-  }
-
   .main-title {
-    font-size: 3.2rem;
-    margin-bottom: 1rem;
-  }
-
-  .subtitle {
-    font-size: 1.8rem;
-    background: linear-gradient(180deg, #d3aa63 0%, #a27533 100%); /* Slightly darker gradient for subtitle */
-    -webkit-background-clip: text;
-    background-clip: text;
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    letter-spacing: 0.02em;
+    text-wrap: balance;
   }
 }
 
-.bottom-section {
+/* Sections: a quiet single row under the search, not a second hero */
+.nav-grid {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 2.5rem;
+  max-width: 1100px;
+
+  app-nav-button {
+    display: block;
+  }
 }
 
 .featured-box {
   background: linear-gradient(180deg, #6c4e1f 0%, #3a2608 100%);
   border: 2px solid #a37c35;
   border-radius: 2px;
-  padding: 1rem 2rem;
+  padding: 0.7rem 1.6rem;
+  margin-top: 2.25rem;
   text-align: center;
-  font-family: 'Times New Roman', serif;
+  font-family: var(--font-body);
   color: #f7e6b5;
-  box-shadow: 
+  box-shadow:
     inset 0 0 15px rgba(0, 0, 0, 0.9),
     0 0 0 2px #151005,
     0 5px 15px rgba(0, 0, 0, 0.8);
-  margin-bottom: 1.5rem;
   position: relative;
   width: fit-content;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
+  font-size: 1rem;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
-  
+  cursor: pointer;
+  transition: filter 0.2s ease;
+
+  &:hover { filter: brightness(1.12); }
+
+  &:focus-visible {
+    outline: 2px solid #0ac8b9;
+    outline-offset: 5px;
+  }
+
   /* Decorative corners approximation */
   &::before, &::after {
     content: '';
@@ -101,31 +108,22 @@
     border-right: none;
     border-bottom: none;
   }
-  
+
   &::after {
     bottom: -4px; right: -4px;
     border-left: none;
     border-top: none;
   }
 
+  /* Label role: small, wide-tracked Cinzel over the Roboto line below */
   .gold-text {
-    color: #e5cd8d;
-    font-weight: bold;
     display: block;
-    margin-bottom: 0.3rem;
-  }
-}
-
-.nav-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: flex-end;
-
-  .nav-row {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
+    margin-bottom: 0.25rem;
+    color: #e5cd8d;
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
   }
 }
 
@@ -133,66 +131,48 @@
    Responsive Design (Mobile/Tablet)
    ================================ */
 
-@media (max-width: 1024px) {
-  .bottom-section {
-    align-items: center;
-  }
-  .nav-grid {
-    align-items: center;
-    .nav-row {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .header {
-    align-items: center;
-    text-align: center;
-    max-width: 100%;
-    
-    .lol-text {
-      text-align: center;
-    }
-    
-    .logo-title {
-      font-size: 2.2rem;
-    }
-    
-    .main-title {
-      font-size: 2.5rem;
-    }
-    
-    .subtitle {
-      font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 1.75rem;
+
+    /* Odd item out spans the row instead of leaving a hole */
+    app-nav-button:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
   }
 
   .featured-box {
     width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+    margin-top: 1.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Short landscape: tighten vertical rhythm so search and sections stay on one screen */
+@media (max-height: 500px) {
+  .header {
+    margin-bottom: 1.75rem;
   }
 
-  .nav-grid .nav-row {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    align-items: stretch;
+  .nav-grid {
+    margin-top: 1.25rem;
+  }
+
+  .featured-box {
+    margin-top: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
-  .header {
-    .logo-title {
-      font-size: 1.8rem;
-    }
-    .main-title {
-      font-size: 2rem;
-    }
-    .subtitle {
-      font-size: 1.1rem;
-    }
+  .header .main-title {
+    font-size: 1.75rem;
   }
 }
